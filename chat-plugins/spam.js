@@ -1,4 +1,4 @@
-const ROOM_NAME = "Escoriazone";
+const ROOM_NAME = "BosqueSiempreLibre";
 var room = Rooms.get(toId(ROOM_NAME));
 if (!room) {
 	Rooms.global.addChatRoom(ROOM_NAME);
