@@ -323,7 +323,7 @@ const messages = [
 			Equ.tells[id][user.userid] = [msg];
 		}
 
-		fs.writeFileSync(DATA_DIR + 'tells.json', JSON.stringify(Rose.tells));
+		fs.writeFileSync(DATA_DIR + 'tells.json', JSON.stringify(Equ.tells));
 				if (this.message.startsWith(`/tell`)) {
 		user.send('|pm| ' + this.targetUsername + '|' + this.user.getIdentity() + '|/raw ' + '<small>[' + moment().format("HH:mm:ss") + ']</small>' + userSymbol + '<strong class="username"><span style = "color:' + Equ.Color(user.userid) + '">' + user.name + ':</span></strong> ' + Chat.escapeHTML(target));
 		
