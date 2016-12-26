@@ -385,7 +385,7 @@ staff: 'authlist',
 				}
 			}
 			connection.popup('|html|' +
-				'<h3><center>Staff Del Servidor Magic</center></h3>' +
+				'<h3><center>Staff De Equestria</center></h3>' +
 				'<b><u>~Administradores' +  ' (' + staff['admins'].length + ')</u></b>:<br />' + staff['admins'].join(', ') +
 				'<br /><b><u>&Lideres' +  ' (' + staff['leaders'].length + ')</u></b>:<br />' + staff['leaders'].join(', ') +
 				'<br /><b><u>@Moderadores (' + staff['mods'].length + ')</u></b>:<br />' + staff['mods'].join(', ') +
