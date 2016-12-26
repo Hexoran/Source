@@ -1208,7 +1208,7 @@ exports.commands = {
 			return;
 		}
 		if (targetRoom.founder) {
-			buffer.unshift((targetRoom.founder ? "Room Founder:\n" + ((Users(targetRoom.founder) && Users(targetRoom.founder).connected) ? Equ.nameColor(targetRoom.founder, true) : Rose.nameColor(targetRoom.founder)) : ''));
+			buffer.unshift((targetRoom.founder ? "Room Founder:\n" + ((Users(targetRoom.founder) && Users(targetRoom.founder).connected) ? Equ.nameColor(targetRoom.founder, true) : Equ.nameColor(targetRoom.founder)) : ''));
 		}
 		if (room.autorank) buffer.unshift("Autorank is currently set to " + Config.groups[room.autorank].name + " (" + room.autorank + ")");
 		if (targetRoom !== room) buffer.unshift("" + targetRoom.title + " room auth:");
