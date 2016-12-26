@@ -23,7 +23,7 @@ Equ.getTells = function(target, room, user, connection) {
 			tell[i].forEach(msg => target.send('|pm| Mensajes Pendientes|' + target.getIdentity() + '|/raw ' + msg));
 		}
 		delete Equ.tells[target.userid];
-		fs.writeFileSync(DATA_DIR + 'tells.json', JSON.stringify(Rose.tells));
+		fs.writeFileSync(DATA_DIR + 'tells.json', JSON.stringify(Equ.tells));
 	};
 let bubbleLetterMap = new Map([
 	['a', '\u24D0'], ['b', '\u24D1'], ['c', '\u24D2'], ['d', '\u24D3'], ['e', '\u24D4'], ['f', '\u24D5'], ['g', '\u24D6'], ['h', '\u24D7'], ['i', '\u24D8'], ['j', '\u24D9'], ['k', '\u24DA'], ['l', '\u24DB'], ['m', '\u24DC'],
@@ -611,7 +611,6 @@ staff: 'authlist',
 					official.push('<a href="/' + toId(curRoom.title) + '" class="ilink">' + Chat.escapeHTML(curRoom.title) + '</a> (' + curRoom.userCount + ')');
 					continue;
 				}
-				if (~ignoreRooms.indexOf(room));
 				if (curRoom.isPrivate) {
 					privateRoom.push('<a href="/' + toId(curRoom.title) + '" class="ilink">' + Chat.escapeHTML(curRoom.title) + '</a> (' + curRoom.userCount + ')');
 					continue;

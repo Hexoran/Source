@@ -211,7 +211,6 @@ hide: 'hideauth',
 	resetsymbolhelp: ["/resetsymbol - Resets your custom symbol."],
 
 	
-	'!wallet': true,
 	pd: 'wallet',
 	purse: 'wallet',
 	wallet: function (target, room, user) {
@@ -307,7 +306,6 @@ hide: 'hideauth',
 		logMoney(user.name + " transferred " + amount + " to " + username + ". " + user.name + " now has " + userTotal + " and " + username + " now has " + targetTotal + ".");
 	},
 	transfermoneyhelp: ["/transfer [usuario], [cantidad] - Transfiere una cantidad de dinero a otro usuario."],
-	'!shop':true,
 	shop: function(target, room, user) {
 		if (!this.runBroadcast()) return;
 		if (room.id === '' && this.broadcasting) {
@@ -408,7 +406,6 @@ hide: 'hideauth',
 			});
 		});
 	},
-	'!richestuser': true,
 	moneyladder: 'richestuser',
 	richladder: 'richestuser',
 	richestusers: 'richestuser',

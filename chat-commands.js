@@ -403,23 +403,27 @@ exports.commands = {
 		if (!target) return this.parse('/help msg');
 		target = this.splitTarget(target);
 		let targetUser = this.targetUser;
+		if (this.targetUsername === 'mensajespendientes') return this.errorReply("¿En serio?, hablando con los mensajes pendientes?, busca un usuario de verdad! ¬¬'");
 		if (!target) {
 			this.errorReply("You forgot the comma.");
 			return this.parse('/help msg');
 		}
 		if (!targetUser) {
-			this.parse('/tell ' + this.targetUsername + ',' + target);
+			return this.parse("/tell " + this.targetUsername + "," + target);
+
 		}
+
 		this.pmTarget = targetUser;
 		this.room = undefined;
 
 		if (!targetUser.connected) {
-			this.parse('!tell ' + this.targetUsername + ',' + target);
+			return this.parse("/tell " + this.targetUsername + "," + target);
 		}
 
 		this.parse(target);
 	},
 	msghelp: ["/msg OR /whisper OR /w [username], [message] - Send a private message."],
+
 
 	'!invite': true,
 	inv: 'invite',
@@ -1175,6 +1179,41 @@ exports.commands = {
 		connection.popup(buffer.join("\n\n") + userLookup);
 	},
 */
+	roomstaff: 'roomauth',
+	roomauth1: 'roomauth',
+	roomauth: function (target, room, user, connection, cmd) {
+		let userLookup = '';
+		if (cmd === 'roomauth1') userLookup = '\n\nTo look up auth for a user, use /userauth ' + target;
+		let targetRoom = room;
+		if (target) targetRoom = Rooms.search(target);
+		if (!targetRoom || targetRoom.id === 'global' || !targetRoom.checkModjoin(user)) return this.errorReply(`The room "${target}" does not exist.`);
+		if (!targetRoom.auth) return this.sendReply("/roomauth - The room '" + (targetRoom.title || target) + "' isn't designed for per-room moderation and therefore has no auth list." + userLookup);
+
+		let rankLists = {};
+		for (let u in targetRoom.auth) {
+			if (!rankLists[targetRoom.auth[u]]) rankLists[targetRoom.auth[u]] = [];
+			rankLists[targetRoom.auth[u]].push(u);
+		}
+
+		let buffer = Object.keys(rankLists).sort((a, b) =>
+			(Config.groups[b] || {rank:0}).rank - (Config.groups[a] || {rank:0}).rank
+		).map(r => {
+			let roomRankList = rankLists[r].sort();
+			roomRankList = roomRankList.map(s => ((Users(s) && Users(s).connected) ? Rose.nameColor(s, true) : Rose.nameColor(s)));
+			return (Config.groups[r] ? Chat.escapeHTML(Config.groups[r].name) + "s (" + Chat.escapeHTML(r) + ")" : r) + ":\n" + roomRankList.join(", ");
+		});
+
+		if (!buffer.length) {
+			connection.popup("The room '" + targetRoom.title + "' has no auth." + userLookup);
+			return;
+		}
+		if (targetRoom.founder) {
+			buffer.unshift((targetRoom.founder ? "Room Founder:\n" + ((Users(targetRoom.founder) && Users(targetRoom.founder).connected) ? Rose.nameColor(targetRoom.founder, true) : Rose.nameColor(targetRoom.founder)) : ''));
+		}
+		if (room.autorank) buffer.unshift("Autorank is currently set to " + Config.groups[room.autorank].name + " (" + room.autorank + ")");
+		if (targetRoom !== room) buffer.unshift("" + targetRoom.title + " room auth:");
+		connection.send("|popup||html|" + buffer.join("\n\n") + userLookup);
+	},
 	'!userauth': true,
 	userauth: function (target, room, user, connection) {
 		let targetId = toId(target) || user.userid;

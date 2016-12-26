@@ -71,7 +71,7 @@ function nightclubify (message) {
 	var rank = '', rankIndex = (toId(message[0]) ? 0 : 1);
 	if (rankIndex) rank = message[0];
 	var user = message.substring(rankIndex, (~message.indexOf('|') ? message.indexOf('|') : message.length));
-	if (!toId(user)) return '|c:|' + (~~(Date.now() / 1000)) + '|' + message;
+	if (!toId(user)) return '|c:|' + (~~(Date.now() / 1000)) +  "|~|" + message;
 	message = (~message.indexOf('|') ? message.substring(message.indexOf('|') + 1) : '');
 	return '|raw|<div style = "font-size: 11pt; margin: -3px; padding: 1px; background: black; color: white; text-shadow: 0px 0px 10px, 0px 0px 10px, 0px 0px 10px;">' +
 		'<small style = "color: white">' + rank + '</small>' +
