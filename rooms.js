@@ -90,6 +90,9 @@ class Room {
 	addRaw(message) {
 		return this.add('|raw|' + message);
 	}
+	addLogMessage(user, text) {
+		return this.add('|c|' + user.getIdentity(this) + '|/log ' + text).update();
+	}
 	getLogSlice(amount) {
 		let log = this.log.slice(amount);
 		log.unshift('|:|' + (~~(Date.now() / 1000)));
@@ -200,7 +203,7 @@ class Room {
 
 		user.updateIdentity(this.id);
 
-		Punishments.monitorRoomPunishments(user);
+		if (!(this.isPrivate === true || this.isPersonal || this.battle)) Punishments.monitorRoomPunishments(user);
 
 		return userid;
 	}
@@ -266,12 +269,12 @@ class GlobalRoom {
 		// but this is okay to prevent race conditions as we start up PS
 		this.lastBattle = 0;
 		try {
-			this.lastBattle = parseInt(fs.readFileSync('logs/lastbattle.txt', 'utf8')) || 0;
+			this.lastBattle = parseInt(fs.readFileSync(LOGS_DIR +'lastbattle.txt', 'utf8')) || 0;
 		} catch (e) {} // file doesn't exist [yet]
 
 		this.chatRoomData = [];
 		try {
-			this.chatRoomData = require('./config/chatrooms.json');
+			this.chatRoomData = require(DATA_DIR + 'chatrooms.json');
 			if (!Array.isArray(this.chatRoomData)) this.chatRoomData = [];
 		} catch (e) {} // file doesn't exist [yet]
 
@@ -323,8 +326,8 @@ class GlobalRoom {
 				lastBattle = this.lastBattle + 10;
 
 				writing = true;
-				fs.writeFile('logs/lastbattle.txt.0', '' + lastBattle, () => {
-					fs.rename('logs/lastbattle.txt.0', 'logs/lastbattle.txt', () => {
+				fs.writeFile(LOGS_DIR + 'lastbattle.txt.0', '' + lastBattle, () => {
+					fs.rename(LOGS_DIR + 'lastbattle.txt.0', LOGS_DIR + 'lastbattle.txt', () => {
 						writing = false;
 						if (lastBattle < this.lastBattle) {
 							process.nextTick(() => this.writeNumRooms());
@@ -348,9 +351,9 @@ class GlobalRoom {
 					.replace(/\{"title"\:/g, '\n{"title":')
 					.replace(/\]$/, '\n]');
 
-				fs.writeFile('config/chatrooms.json.0', data, () => {
+				fs.writeFile(DATA_DIR + 'chatrooms.json.0', data, () => {
 					data = null;
-					fs.rename('config/chatrooms.json.0', 'config/chatrooms.json', () => {
+					fs.rename(DATA_DIR + 'chatrooms.json.0', DATA_DIR + 'chatrooms.json', () => {
 						writing = false;
 						if (writePending) {
 							writePending = false;
@@ -378,7 +381,7 @@ class GlobalRoom {
 		);
 
 		// Create writestream for modlog
-		this.modlogStream = fs.createWriteStream(path.resolve(__dirname, 'logs/modlog/modlog_global.txt'), {flags:'a+'});
+		this.modlogStream = fs.createWriteStream(path.resolve(LOGS_DIR + 'modlog/modlog_global.txt'), {flags:'a+'});
 	}
 
 	reportUserStats() {
@@ -427,12 +430,14 @@ class GlobalRoom {
 	getRoomList(filter) {
 		let rooms = [];
 		let skipCount = 0;
-		if (this.battleCount > 150 && !filter) {
+		let [formatFilter, eloFilter] = filter.split(',');
+		if (this.battleCount > 150 && !formatFilter && !eloFilter) {
 			skipCount = this.battleCount - 150;
 		}
 		Rooms.rooms.forEach(room => {
 			if (!room || !room.active || room.isPrivate) return;
-			if (filter && filter !== room.format && filter !== true) return;
+			if (formatFilter && formatFilter !== room.format) return;
+			if (eloFilter && (!room.rated || room.rated < eloFilter)) return;
 			if (skipCount && skipCount--) return;
 
 			rooms.push(room);
@@ -719,12 +724,13 @@ class GlobalRoom {
 			this.maxUsers = this.userCount;
 			this.maxUsersDate = Date.now();
 		}
-
+		Equ.getTells(user);
 		return user;
 	}
 	onRename(user, oldid, joining) {
 		delete this.users[oldid];
 		this.users[user.userid] = user;
+		Equ.getTells(user);
 		return user;
 	}
 	onUpdateIdentity() {}
@@ -1688,8 +1694,8 @@ Rooms.createChatRoom = function (roomid, title, data) {
 	return room;
 };
 
-Rooms.battleModlogStream = fs.createWriteStream(path.resolve(__dirname, 'logs/modlog/modlog_battle.txt'), {flags:'a+'});
-Rooms.groupchatModlogStream = fs.createWriteStream(path.resolve(__dirname, 'logs/modlog/modlog_groupchat.txt'), {flags:'a+'});
+Rooms.battleModlogStream = fs.createWriteStream(path.resolve(LOGS_DIR +  'modlog/modlog_battle.txt'), {flags:'a+'});
+Rooms.groupchatModlogStream = fs.createWriteStream(path.resolve(LOGS_DIR + 'modlog/modlog_groupchat.txt'), {flags:'a+'});
 
 Rooms.global = null;
 Rooms.lobby = null;

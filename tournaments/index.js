@@ -886,6 +886,41 @@ class Tournament {
 		}));
 		this.isEnded = true;
 		if (this.autoDisqualifyTimer) clearTimeout(this.autoDisqualifyTimer);
+						// Tournament Winnings
+		//
+		let color = '#BB6007';
+		let sizeRequiredToEarn = 2;
+		let currencyName = function (amount) {
+			let name = " PD";
+			return amount === 1 ? name : name + "s";
+		};
+		let data = this.generator.getResults().map(usersToNames).toString();
+		let winner, runnerUp;
+
+		if (data.indexOf(',') >= 0) {
+			data = data.split(',');
+			winner = data[0];
+			if (data[1]) runnerUp = data[1];
+		} else {
+			winner = data;
+		}
+
+		let wid = toId(winner);
+		let rid = toId(runnerUp);
+		let tourSize = this.generator.users.size;
+
+		if (this.room.isOfficial && tourSize >= sizeRequiredToEarn) {
+			let firstMoney = Math.round(tourSize * 20);
+			let secondMoney = Math.round(firstMoney / 2)
+
+			Db('money').set(wid, Db('money').get(wid, 0) + firstMoney);
+			this.room.addRaw("<b><font color='" + Equ.Color(winner) + "'>" + Chat.escapeHTML(winner) + "</font> Ha ganado " + "<font color='" + color + "'>" + firstMoney + "</font>" + currencyName(firstMoney) + " por ganar el tournament</b>");
+
+			if (runnerUp) {
+				Db('money').set(rid, Db('money').get(rid, 0) + secondMoney);
+				this.room.addRaw("<b><font color='" + Equ.Color(runnerUp) + "'>" + Chat.escapeHTML(runnerUp) + "</font> Ha ganado " +  "<font color='" + color + "'>" + + secondMoney + "</font>" + currencyName(secondMoney) + " por quedar segundo lugar!</b>");
+			}
+		}
 		delete exports.tournaments[this.room.id];
 		delete this.room.game;
 		for (let i in this.players) {
@@ -1198,9 +1233,11 @@ let commands = {
 		},
 		ban: function (tournament, user, params, cmd) {
 			if (params.length < 1) {
-				return this.sendReply("Usage: " + cmd + " <user>");
+				return this.sendReply("Usage: " + cmd + " <user>, <reason>");
 			}
-			let targetUser = Users.get(params[0]) || params[0];
+			let targetUser = Users.get(params[0]);
+			let online = !!targetUser;
+			if (!online) targetUser = params[0];
 			let targetUserid = toId(targetUser);
 			let reason = '';
 			if (params[1]) {
@@ -1208,11 +1245,29 @@ let commands = {
 				if (reason.length > MAX_REASON_LENGTH) return this.errorReply("The reason is too long. It cannot exceed " + MAX_REASON_LENGTH + " characters.");
 			}
 
-			if (tournament.checkBanned(user)) return this.errorReply("This user is already banned from tournaments.");
+			if (tournament.checkBanned(targetUser)) return this.errorReply("This user is already banned from tournaments.");
 
-			Punishments.roomPunish(this.room, user, ['TOURBAN', targetUserid, Date.now() + TOURBAN_DURATION, reason]);
-			tournament.removeBannedUser(user);
+			let punishment = ['TOURBAN', targetUserid, Date.now() + TOURBAN_DURATION, reason];
+			if (online) {
+				Punishments.roomPunish(this.room, targetUser, punishment);
+			} else {
+				Punishments.roomPunishName(this.room, targetUser, punishment);
+			}
+			tournament.removeBannedUser(targetUser);
 			this.privateModCommand((targetUser.name || targetUserid) + " was banned from tournaments by " + user.name + "." + (reason ? " (" + reason + ")" : ""));
+		},
+		unban: function (tournament, user, params, cmd) {
+			if (params.length < 1) {
+				return this.sendReply("Usage: " + cmd + " <user>");
+			}
+			let targetUser = Users.get(params[0]) || params[0];
+			let targetUserid = toId(targetUser);
+
+			if (!tournament.checkBanned(targetUser)) return this.errorReply("This user isn't banned from tournaments.");
+
+			Punishments.roomUnpunish(this.room, targetUser, 'TOURBAN');
+			tournament.removeBannedUser(targetUser);
+			this.privateModCommand((targetUser.name || targetUserid) + " was unbanned from tournaments by " + user.name + ".");
 		},
 	},
 };
@@ -1382,6 +1437,7 @@ Chat.commands.tournamenthelp = function (target, room, user) {
 		"- on/enable &lt;%|@>: Enables allowing drivers or mods to start tournaments in the current room.<br />" +
 		"- off/disable: Disables allowing drivers and mods to start tournaments in the current room.<br />" +
 		"- announce/announcements &lt;on|off>: Enables/disables tournament announcements for the current room.<br />" +
+		"- ban/unban &lt;user>: Bans/unbans a user from joining tournaments in this room. Lasts 2 weeks.<br />" +
 		"More detailed help can be found <a href=\"https://www.smogon.com/forums/threads/3570628/#post-6777489\">here</a>"
 	);
 };

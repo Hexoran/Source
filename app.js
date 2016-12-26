@@ -45,6 +45,12 @@
 const fs = require('fs');
 const path = require('path');
 
+/* ----------------Data-Directory------------*/
+global.DATA_DIR = (process.env.OPENSHIFT_DATA_DIR) ? process.env.OPENSHIFT_DATA_DIR : './config/';
+global.LOGS_DIR = (process.env.OPENSHIFT_DATA_DIR) ? (process.env.OPENSHIFT_DATA_DIR + 'logs/') : './logs/';
+global.DB_DIR = (process.env.OPENSHIFT_DATA_DIR) ? process.env.OPENSHIFT_DATA_DIR : './config/db/';
+
+
 /*********************************************************
  * Make sure we have everything set up correctly
  *********************************************************/
@@ -80,6 +86,21 @@ try {
 	global.Config = require('./config/config');
 }
 
+if (!fs.existsSync(DATA_DIR + "avatars/")) {
+	fs.mkdirSync(DATA_DIR + "avatars/");
+}
+
+if (!fs.existsSync(DB_DIR)) {
+	fs.mkdirSync(DB_DIR);
+}
+
+if (!fs.existsSync(LOGS_DIR)) {
+	fs.mkdirSync(LOGS_DIR);
+	fs.mkdirSync(LOGS_DIR + 'chat/');
+	fs.mkdirSync(LOGS_DIR + 'modlog/');
+	fs.mkdirSync(LOGS_DIR + 'repl/');
+}
+
 if (Config.watchconfig) {
 	let configPath = require.resolve('./config/config');
 	fs.watchFile(configPath, (curr, prev) => {
@@ -113,6 +134,12 @@ global.Users = require('./users');
 global.Punishments = require('./punishments');
 
 global.Chat = require('./chat');
+
+global.sqlite3 = require('sqlite3');
+
+global.Db = require('origindb')(DB_DIR);
+
+global.Equ = {};
 
 global.Rooms = require('./rooms');
 
@@ -175,3 +202,9 @@ TeamValidator.PM.spawn();
  *********************************************************/
 
 require('./repl').start('app', cmd => eval(cmd));
+
+ /*--------- Clans & Wars  & Ligas ---------*/
+ global.Clans = require('./clans.js');
+ global.War = require('./war.js');
+ global.League = require('./league.js');
+
