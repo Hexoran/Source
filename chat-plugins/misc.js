@@ -7,6 +7,7 @@ Equ.nameColor = function (name, bold) {
 const path = require('path');
 const fs = require('fs');
 const moment = require('moment');
+
 Equ.tells = {};
 try {
 	Equ.tells = JSON.parse(fs.readFileSync(DATA_DIR + 'tells.json', 'utf*'));
@@ -15,6 +16,27 @@ try {
 const MAX_TELLS = 4;
 const MAX_TELL_LENGTH = 500;
 
+function generateNews () {
+			let lobby = Rooms('lobby');
+			if (!lobby) return false;
+			if (!lobby.news || Object.keys(lobby.news).length < 0) return false;
+			if (!lobby.news) lobby.news = {};
+			let news = lobby.news, newsDisplay = [];
+			Object.keys(news).forEach(announcement => {
+				newsDisplay.push(`<h4>${announcement}</h4>${news[announcement].desc}<br /><br /><strong>—<font color="${Equ.Color(news[announcement].by)}">${news[announcement].by}</font></strong> on ${moment(news[announcement].posted).format("MMM D, YYYY")}`);
+			});
+			return newsDisplay;
+		}
+function newsDisplay(user) {
+			if (!Users(user)) return false;
+			let newsDis = this.generateNews();
+			if (newsDis.length === 0) return false;
+
+			if (newsDis.length > 0) {
+				newsDis = newsDis.join('<hr>');
+				return Users(user).send(`|pm| News|${Users(user).getIdentity()}|/raw ${newsDis}`);
+			}
+}
 Equ.getTells = function(target, room, user, connection) {
 		target = Users.get(target);
 		let tell = Equ.tells[target.userid];
@@ -87,7 +109,88 @@ const messages = [
     "cayó en un nido de víboras!",
 ];
  exports.commands = {
-        
+    	news: 'serverannouncements',
+	announcements: 'serverannouncements',
+	serverannouncements: {
+		'': 'view',
+		display: 'view',
+		view: function (target, room, user) {
+			if (!Rooms('lobby') || !Rooms('lobby').news) return this.errorReply("Strange, there are no server announcements...");
+			if (!Rooms('lobby').news && Rooms('lobby')) Rooms('lobby').news = {};
+			let news = Rooms('lobby').news;
+			if (Object.keys(news).length === 0) return this.sendReply("There are currently no new server announcements at this time.");
+			return user.send('|popup||wide||html|' +
+				"<center><strong>Noticias del servidor:</strong></center>" +
+					generateNews().join('<hr>')
+			);
+		},
+		delete: function (target, room, user) {
+			if (!this.can('ban')) return false;
+			if (!target) return this.parse('/help serverannouncements');
+			if (!Rooms('lobby').news) Rooms('lobby').news = {};
+			let news = Rooms('lobby').news;
+			if (!news[target]) return this.errorReply("This announcement doesn't seem to exist...");
+			delete news[target];
+			Rooms('lobby').news = news;
+			Rooms('lobby').chatRoomData.news = Rooms('lobby').news;
+			Rooms.global.writeChatRoomData();
+			this.privateModCommand(`(${user.name} deleted server announcement titled: ${target}.)`);
+		},
+		add: function (target, room, user) {
+			if (!this.can('ban')) return false;
+			if (!target) return this.parse('/help serverannouncements');
+			target = target.split('|');
+			for (let u in target) target[u] = target[u].trim();
+			if (!target[1]) return this.errorReply("Usage: /news add [title]| [desc]");
+			if (!Rooms('lobby').news) Rooms('lobby').news = {};
+			let news = Rooms('lobby').news;
+			news[target[0]] = {
+				desc: target[1],
+				posted: Date.now(),
+				by: user.name,
+			};
+			Rooms('lobby').news = news;
+			Rooms('lobby').chatRoomData.news = Rooms('lobby').news;
+			Rooms.global.writeChatRoomData();
+			this.privateModCommand(`(${user.name} added server announcement: ${target[1]})`);
+		},
+	},
+	serverannouncementshelp: ["/announcements view - Views current server announcements.",
+		"/announcements delete [announcement title] - Deletes announcement with the [title]. Requires @, &, ~",
+		"/announcements add [announcement title]| [announcement desc] - Adds announcement [announcement]. Requires @, &, ~"],
+		        hoster: {
+        	add: function (target, room, user, userid) {
+			if (!this.userid == 'fantasmano') return this.errorReply('Este comando solo lo puede usar Fantasmano');
+			let hoster = toId(target);
+			if (!hoster) return this.parse('/hoster');
+			if (isHoster(hoster)) return this.errorReply(hoster + ' is already a vip.');
+			Db('hoster').set(hoster, 1);
+			this.sendReply(hoster + ' has been granted with vip status.');
+		},
+	       	remove: function (target, room, user) {
+			var userid = user.userid;    	
+			if (!isHoster(userid)) return false;
+			let hoster = toId(target);
+			if (!hoster) return this.parse('/hoster');
+			if (!isHoster(hoster)) return this.errorReply(hoster + ' is not a vip.');
+			Db('hoster').delete(hoster);
+			this.sendReply(hoster + '\'s vip status has been taken.');
+		},
+			list: function (target, room, user) {
+			var userid = user.userid;    	
+			if (!isHoster(userid)) return false;
+			if (!Object.keys(Db('hoster').object()).length) return this.errorReply('There seems to be no user with vip status.');
+			user.popup('|html|<center><b><u>Super Administradores.</u></b></center>' + '<br /><br />' + Object.keys(Db('hoster').object()).join('</strong><br />'));
+		},
+		    '': function(target,room,user) {
+		  	if (!this.can('hotpatch')) return false;
+		  	this.sendReplyBox('<strong>Comandos de hoster</strong><br>' +
+		  	'<li><em>&mdash; add</em> - Agrega a un usuario a la lista de super administradores.</li>' +
+		  	'<li><em>&mdash; remove</em> - Remueve a un usuario a la lista de super administradores.</li>' +
+		  	'<li><em>&mdash; list</em> - Vizualiza todos los super administradores.</li>'
+		  	);
+		    },
+    },
 	pinkhelp: 'raincolors',
         pinkiehelp: 'raincolors',
         rainhelp: 'raincolors',
@@ -293,7 +396,7 @@ const messages = [
 		if (!this.canTalk()) return this.errorReply("You cannot do this while unable to talk.");
 		if (Users.ShadowBan.checkBanned(user)) return;
 		target = this.splitTarget(target);
-		if (this.targetUsername === 'magicnews') return this.errorReply("Estas son las news del servidor, no una persona");
+		if (this.targetUsername === 'equestrianews') return this.errorReply("Estas son las news del servidor, no una persona");
 		if (this.targetUsername === 'mensajespendientes') return this.errorReply("¿En serio?, hablando con los mensajes pendientes?, busca un usuario de verdad! ¬¬'");
 		let targetUser = this.targetUsername;
 		let id = toId(targetUser);

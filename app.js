@@ -207,4 +207,4 @@ require('./repl').start('app', cmd => eval(cmd));
  global.Clans = require('./clans.js');
  global.War = require('./war.js');
  global.League = require('./league.js');
-
+ global.Bot = require('./bot.js');
