@@ -101,8 +101,7 @@ exports.commands = {
 	
 	nuevobingo: 'newbingo',
 	newbingo: function (target, room, user) {
-	const ROOM = 'Minijuegos';
-		if (room.id !==ROOM) return this.sendReply("Este comando solo puede ser usado en una sala de " + ROOM);
+		if (room.id !== 'equestriagames') return this.sendReply("Este comando solo puede ser usado en una sala de " + SALA_GAMES);
 		if (!casinoOwners[user.userid] && !this.can(defaultPermission, room)) return false;
 		if (bingoStatus) return this.sendReply("Ya hay un bingo en marcha.");
 		bingoStatus = true;
