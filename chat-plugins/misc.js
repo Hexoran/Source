@@ -15,7 +15,13 @@ try {
 
 const MAX_TELLS = 4;
 const MAX_TELL_LENGTH = 500;
-
+function isHoster(user) {
+	if (!user) return;
+	if (typeof user === 'Object') user = user.userid;
+	let hoster = Db('hoster').get(toId(user));
+	if (hoster === 1) return true;
+	return false;
+}
 function generateNews () {
 			let lobby = Rooms('lobby');
 			if (!lobby) return false;
