@@ -166,7 +166,7 @@ const messages = [
 		"/announcements add [announcement title]| [announcement desc] - Adds announcement [announcement]. Requires @, &, ~"],
 		        hoster: {
         	add: function (target, room, user, userid) {
-			if (!this.userid == 'fantasmano') return this.errorReply('Este comando solo lo puede usar Fantasmano');
+			if (!this.userid == 'deltaskiez') return this.errorReply('Este comando solo lo puede usar DeltaSkiez');
 			let hoster = toId(target);
 			if (!hoster) return this.parse('/hoster');
 			if (isHoster(hoster)) return this.errorReply(hoster + ' is already a vip.');
