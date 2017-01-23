@@ -203,7 +203,7 @@ exports.commands = {
 		if (!target) return this.sendReply("/buypack - Buys a pack from the pack shop. Alias: /buypacks");
 		let self = this;
 		let packId = toId(target);
-		let amount = Gold.readMoney(user.userid);
+		let amount = Shop.readMoney(user.userid);
 		if (cleanShop.indexOf(packId) < 0) return self.sendReply("This is not a valid pack. Use /packshop to see all packs.");
 		let shopIndex = cleanShop.indexOf(toId(target));
 		if (packId !== 'xybase' && packId !== 'xyfuriousfists' && packId !== 'xyflashfire' && packId !== 'xyphantomforces' && packId !== 'xyroaringskies' && packId !== 'xyprimalclash' && packId !== 'xyancientorigins' && packId !== 'xygenerations' && packId !== 'xypromo') return self.sendReply("This pack is not currently in circulation.  Please use /packshop to see the current packs.");
@@ -319,7 +319,7 @@ exports.commands = {
 	cardladder: function (target, room, user) {
 		if (!this.runBroadcast()) return;
 		let keys = Object.keys(Db('points').object()).map(function (name) {
-			return {name: Gold.nameColor(name, false), points: getPointTotal(name)};
+			return {name: Equ.Color(name, false), points: getPointTotal(name)};
 		});
 		if (!keys.length) return this.sendReplyBox("Card ladder is empty.");
 		keys.sort(function (a, b) { return b.points - a.points; });
