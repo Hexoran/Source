@@ -312,7 +312,7 @@ hide: 'hideauth',
 			return true;
 		} else {
 			var buttonStyle = 'border-radius:5px; border: 2px inset black; background: rgba(255, 217, 234, 0.71) ; color:black; padding: 3px';
-			var topStyle = 'background: url(http://i.imgur.com/gytPba2.jpg) ; border: 1px solid black; padding: 2px; border-radius: 5px;';
+			var topStyle = 'background: url(http://m.imgur.com/FD2q9yD) ; border: 1px solid black; padding: 2px; border-radius: 5px;';
 			var descStyle = 'border-radius: 5px; border: 1px solid black ; background: rgba(255, 217, 234, 0.71); color: #000; border-collapse: collapse;';
 			var top = '<td><center><table style="' + topStyle + '" border="5" cellspacing ="5" cellpadding="5"><tr><th>Objeto</th><th>Descripcion del objeto</th><th>Precio</th></tr>';
 			var bottom = '<table><td style="' + descStyle + '">Para comprar un item de la tienda  use /buy comando. <b>NO</b> nos hacemos responsables por objetos comprados erroneamente.</td>';
