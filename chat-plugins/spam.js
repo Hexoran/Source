@@ -1,4 +1,4 @@
-const ROOM_NAME = "BosqueSiempreLibre";
+const ROOM_NAME = "Spam Room";
 var room = Rooms.get(toId(ROOM_NAME));
 if (!room) {
 	Rooms.global.addChatRoom(ROOM_NAME);
@@ -181,7 +181,7 @@ exports.commands = {
 	unspam: function (target, room, user) {
 		if (!this.can('lock')) return false;
 		this.splitTarget(target);
-		var Equestria = Rooms('BosqueSiempreLibre') ? Rooms('BosqueSiempreLibre') : false;
+		var Equestria = Rooms('Spam Room') ? Rooms('Spam Room') : false;
 		var targets = removeUser(this.targetUser || this.targetUsername);
 		if (targets.length === 0) {
 			return this.sendReply('||' + this.targetUsername + " no esta en el bosque.");
@@ -197,7 +197,7 @@ exports.commands = {
 		for (let key in data) {
 			result.push(key);
 		}
-		this.sendReply('|raw|<div class="infobox">Usuarios atrapados en el bosque!:<br><b>' + result.join(', ') + '</b></div>');
+		this.sendReply('|raw|<div class="infobox">Usuarios en el Spam Room:<br><b>' + result.join(', ') + '</b></div>');
 	},
 	    yt: function(target, room, user) {
        	if (!this.runBroadcast()) return false;
