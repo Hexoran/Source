@@ -389,10 +389,10 @@ const messages = [
                     "- " + Equ.nameColor('RαinbowStars', true) + " (Admin, Roomintro, policy)<br />" +
                     "- " + Equ.nameColor('Victinil', true) + " (Admin, Foro)<br />" +
 					"<br />" +
-					"<u>Contribuyentes:</u><br />" +
+					"<u>Contribuidores:</u><br />" +
 					"- " + Equ.nameColor('Sunix', true) + " (Staff del server.)<br />" +
 					"<br />" +
-					"<u>Creditos Especiales:</u><br />" +
+					"<u>Agradecimientos Especiales:</u><br />" +
 					"- Staff del servidor<br />" +
 					"- Nuestros usuarios del servidor<br />");
 	},
