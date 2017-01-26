@@ -383,14 +383,14 @@ const messages = [
     },
 		credit: 'credits',
 	credits: function (target, room, user) {
-		this.popupReply("|html|" + "<font size=5>Creditos de Equestria</font><br />" +
-					"<u>Owners:</u><br />" +
-					"- " + Equ.nameColor('CelestiaPrincess', true) + " (Fundadora, Hoster, Programadora, CSS del Servidor)<br />" +
-                    "- " + Equ.nameColor('LaPrincesaLuna', true) + " (Fundadora, Hoster, Foro, CSS del Foro)<br />" +
-                    "- " + Equ.nameColor('LadyDash', true) + " (Fundadora, Hoster)<br />" +
+		this.popupReply("|html|" + "<font size=5>Creditos de WhiteFlare</font><br />" +
+					"<u>Dueños:</u><br />" +
+					"- " + Equ.nameColor('Arocoz', true) + " (Dueño, Hoster, Sysadmin, CSS del Servidor)<br />" +
+                    "- " + Equ.nameColor('RαinbowStars', true) + " (Admin, Roomintro, policy)<br />" +
+                    "- " + Equ.nameColor('Victinil', true) + " (Admin, Foro)<br />" +
 					"<br />" +
-					"<u>Intros:</u><br />" +
-					"- " + Equ.nameColor('FairyClaw', true) + " (Creo las Room Intro de algunas salas.)<br />" +
+					"<u>Contribuyentes:</u><br />" +
+					"- " + Equ.nameColor('Sunix', true) + " (Staff del server.)<br />" +
 					"<br />" +
 					"<u>Creditos Especiales:</u><br />" +
 					"- Staff del servidor<br />" +
@@ -402,7 +402,7 @@ const messages = [
 		if (!this.canTalk()) return this.errorReply("You cannot do this while unable to talk.");
 		if (Users.ShadowBan.checkBanned(user)) return;
 		target = this.splitTarget(target);
-		if (this.targetUsername === 'equestrianews') return this.errorReply("Estas son las news del servidor, no una persona");
+		if (this.targetUsername === 'whiteflarenews') return this.errorReply("Estas son las news del servidor, no una persona");
 		if (this.targetUsername === 'mensajespendientes') return this.errorReply("¿En serio?, hablando con los mensajes pendientes?, busca un usuario de verdad! ¬¬'");
 		let targetUser = this.targetUsername;
 		let id = toId(targetUser);
