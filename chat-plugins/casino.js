@@ -1,5 +1,5 @@
 const casinoAuthDataFile = DATA_DIR + 'authcasino.json';
-const SALA_GAMES = 'Equestria Games';
+const SALA_GAMES = 'Casino';
 var fs = require('fs');
 
 if (!fs.existsSync(casinoAuthDataFile))
@@ -101,7 +101,7 @@ exports.commands = {
 	
 	nuevobingo: 'newbingo',
 	newbingo: function (target, room, user) {
-		if (room.id !== 'equestriagames') return this.sendReply("Este comando solo puede ser usado en una sala de " + SALA_GAMES);
+		if (room.id !== 'casino') return this.sendReply("Este comando solo puede ser usado en una sala de " + SALA_GAMES);
 		if (!casinoOwners[user.userid] && !this.can(defaultPermission, room)) return false;
 		if (bingoStatus) return this.sendReply("Ya hay un bingo en marcha.");
 		bingoStatus = true;
@@ -136,7 +136,7 @@ exports.commands = {
 	comprartablilla: 'buytable',
 	comprartabla: 'buytable',
 	buytable: function (target, room, user) {
-		if (room.id !== 'equestriagames') return this.sendReply("Este comando solo puede ser usado en la sala Equestria Games.");
+		if (room.id !== 'casino') return this.sendReply("Este comando solo puede ser usado en la sala casino.");
 		let amount = Db('money').get(user.userid, 0);
 		if (!bingoStatus) return this.sendReply("No hay ningún bingo en marcha.");
 		if (tables[user.userid]) return this.sendReply("Ya habías comprado una tablilla.");
@@ -158,7 +158,7 @@ exports.commands = {
 	vertablilla: 'bingo',
 	tablilla: 'bingo',
 	bingo: function (target, room, user) {
-		if (room.id !== 'equestriagames') return this.sendReply("Este comando solo puede ser usado en la sala Equestria Games.");
+		if (room.id !== 'casino') return this.sendReply("Este comando solo puede ser usado en la sala casino.");
 		if (!this.runBroadcast()) return;
 		if (!bingoStatus) return this.sendReply("No hay ningún bingo en marcha.");
 		var targetUserId = user.userid;
@@ -183,7 +183,7 @@ exports.commands = {
 	nr: 'newwheel',
 	nuevaruleta: 'newwheel',
 	newwheel: function (target, room, user) {
-		if (room.id !== 'equestriagames') return this.sendReply("Este comando solo puede ser usado en la sala Equestria Games.");
+		if (room.id !== 'casino') return this.sendReply("Este comando solo puede ser usado en la sala casino.");
 		if (!casinoOwners[user.userid] && !this.can(defaultPermission, room)) return false;
 		if (wheelStatus) return this.sendReply("Ya hay una ruleta en marcha.");
 		var params = target.split(',');
@@ -230,7 +230,7 @@ exports.commands = {
 	
 	finruleta: 'endwheel',
 	endwheel: function (target, room, user) {
-		if (room.id !== 'equestriagames') return this.sendReply("Este comando solo puede ser usado en la sala Equestria Games.");
+		if (room.id !== 'casino') return this.sendReply("Este comando solo puede ser usado en la sala casino.");
 		if (!casinoOwners[user.userid] && !this.can(defaultPermission, room)) return false;
 		if (!wheelStatus) return this.sendReply("No hay ninguna ruleta en marcha.");
 		var pkm = wheelOptions[Math.floor(Math.random() * wheelOptions.length)];
@@ -271,7 +271,7 @@ exports.commands = {
 	
 	ruleta: 'wheel',
 	wheel: function (target, room, user) {
-		if (room.id !== 'equestriagames') return this.sendReply("Este comando solo puede ser usado en la sala Equestria Games.");
+		if (room.id !== 'casino') return this.sendReply("Este comando solo puede ser usado en la sala casino.");
 		if (!wheelStatus) return this.sendReply("No hay ninguna ruleta en marcha.");
 		if (!this.runBroadcast()) return;
 		var optionsList = '';
@@ -283,7 +283,7 @@ exports.commands = {
 	
 	apostar: 'betwheel',
 	betwheel: function (target, room, user) {
-		if (room.id !== 'equestriagames') return this.sendReply("Este comando solo puede ser usado en la sala Equestria Games.");
+		if (room.id !== 'casino') return this.sendReply("Este comando solo puede ser usado en la sala casino.");
 		if (!wheelStatus) return this.sendReply("No hay ninguna ruleta en marcha.");
 		var pokemonId = toId(target);
 		var validPkm = false;
@@ -305,7 +305,7 @@ exports.commands = {
 	
 	beneficios: 'casinomoney',
 	casinomoney: function (target, room, user) {
-		if (room.id !== 'equestriagames') return this.sendReply("Este comando solo puede ser usado en la sala Equestria Games.");
+		if (room.id !== 'casino') return this.sendReply("Este comando solo puede ser usado en la sala casino.");
 		if (!this.canBroadcast()) return;
 		var money = Db('money').get(toId('casino'), 0);
 		if (money < 1) return this.sendReply("No había beneficios en el casino.");
@@ -314,7 +314,7 @@ exports.commands = {
 	
 	darfondos: 'addcasinomoney',
 	addcasinomoney: function (target, room, user) {
-		if (room.id !== 'equestriagames') return this.sendReply("Este comando solo puede ser usado en la sala Equestria Games.");
+		if (room.id !== 'casino') return this.sendReply("Este comando solo puede ser usado en la sala casino.");
 		if (!casinoOwners[user.userid] && !this.can('givemoney')) return false;
 		var money = Db('money').get(toId(user.name), 0)
 		var targetMoney = parseInt(target);
@@ -327,7 +327,7 @@ exports.commands = {
 	slotmachine: 'tragaperras',
 	tragaperras: function (target, room, user) {
 		if (!this.runBroadcast()) return;
-		if (room.id !== 'equestriagames') return this.sendReply("Este comando solo puede ser usado en la sala Equestria Games.");
+		if (room.id !== 'casino') return this.sendReply("Este comando solo puede ser usado en la sala casino.");
 		var money = parseInt(target);
 		var now = Date.now();
 		if (!money || money < 1 || money > 50) return this.sendReply("Solo se puede apostar de 1 a 50 pd");
@@ -365,11 +365,11 @@ exports.commands = {
 	},
 	
 	casino: function (target, room, user) {
-		if (room.id !== 'equestriagames' && Rooms.rooms['equestriagames'] && !Rooms.rooms['equestriagames'].users[user.userid]) {
-			user.joinRoom('equestriagames');
+		if (room.id !== 'casino' && Rooms.rooms['casino'] && !Rooms.rooms['casino'].users[user.userid]) {
+			user.joinRoom('casino');
 			return;
 		}
-		var casinoInfo = 'Bienvenido a Minijuegos: En esta sala puedes apostar tus PokeDolares en diversos juegos de azar y ganar dinero fácil si tienes suerte. Los actuales juegos de azar son los siguientes:<br>-Tragaperras: Usa /slot [1-50] | Puedes perder los Pd o que tu apuesta de multiplique hasta x5. <br> -Ruleta: El staff del casino debe iniciarla con /nuevaruleta y hacerla girar con /finruleta. Nota: el premio inicial viene de los fondos del casino alimentados de las tragaperras y de las ruletas sin ganador. Para los usuarios se apuesta por un Pokemon con /apostar [pokemon] y para ver las opciones /ruleta <br> -Bingo: Se inicia con /nuevobingo y se participa con /buytable. Se van diciendo números aleatorios y quien antes tenga una tablilla con todos sus números dichos gana. <br><br>';
+		var casinoInfo = 'Bienvenido al Casino: En esta sala puedes apostar tus PokeDolares en diversos juegos de azar y ganar dinero fácil si tienes suerte. Los actuales juegos de azar son los siguientes:<br>-Tragaperras: Usa /slot [1-50] | Puedes perder los Pd o que tu apuesta de multiplique hasta x5. <br> -Ruleta: El staff del casino debe iniciarla con /nuevaruleta y hacerla girar con /finruleta. Nota: el premio inicial viene de los fondos del casino alimentados de las tragaperras y de las ruletas sin ganador. Para los usuarios se apuesta por un Pokemon con /apostar [pokemon] y para ver las opciones /ruleta <br> -Bingo: Se inicia con /nuevobingo y se participa con /buytable. Se van diciendo números aleatorios y quien antes tenga una tablilla con todos sus números dichos gana. <br><br>';
 		var owners = Object.keys(casinoOwners);
 		if (!owners || owners.length < 1) {
 			casinoInfo += 'No hay dueños del ' + SALA_GAMES + ' aún.';
@@ -386,7 +386,7 @@ exports.commands = {
 	},
 	
 	casinoowner: function (target, room, user) {
-		if (room.id !== 'equestriagames') return this.sendReply("Este comando solo puede ser usado en la sala Equestria Games.");
+		if (room.id !== 'casino') return this.sendReply("Este comando solo puede ser usado en la sala casino.");
 		if (!this.can('hotpatch')) return;
 		if (!target) return this.sendReply("No has especificado ningún usuario.");
 		var targetUser = Users.get(target);
@@ -397,7 +397,7 @@ exports.commands = {
 	},
 	
 	casinodeowner: function (target, room, user) {
-		if (room.id !== 'equestriagames') return this.sendReply("Este comando solo puede ser usado en la sala Equestria Games.");
+		if (room.id !== 'casino') return this.sendReply("Este comando solo puede ser usado en la sala casino.");
 		if (!this.can('hotpatch')) return;
 		if (!target) return this.sendReply("No has especificado ningún usuario.");
 		var targetUser = Users.get(target);
