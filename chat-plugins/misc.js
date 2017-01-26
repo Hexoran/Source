@@ -208,7 +208,7 @@ const messages = [
 			"<big><b>Rain Colors</b></big><br /><br />" +
 			"/pinkie, /pink o /p (mensaje) para cambiar el color de tu usuario a rosa en un mensaje<br />" +
 			"/rainbow, /rain o /r (mensaje) para cambiar el color de tu usuario a arcoiris en un mensaje<br />" +
-			"Creditos a <b>CelestiaPrincess</b> por reinventar el plugin<br />"
+			"Creditos a <b>Arocoz</b> por reinventar el plugin<br />"
 		);
 	},
         
@@ -392,7 +392,7 @@ const messages = [
 					"<u>Contribuidores:</u><br />" +
 					"- " + Equ.nameColor('Sunix', true) + " (Staff del server.)<br />" +
 					"<br />" +
-					"<u>Agradecimientos Especiales:</u><br />" +
+					"<u>Agradecimientos:</u><br />" +
 					"- Staff del servidor<br />" +
 					"- Nuestros usuarios del servidor<br />");
 	},
@@ -446,7 +446,7 @@ staff: 'authlist',
 	stafflist: 'authlist',
 	auth: 'authlist',
 	authlist: function(target, room, user, connection) {
-		var ignoreUsers = ['manzna', 'fantasmano', 'rosemoon', 'dylanschoenfield'];
+		var ignoreUsers = ['wolloy'];
 		fs.readFile(DATA_DIR + 'usergroups.csv', 'utf8', function(err, data) {
 			var staff = {
 				"admins": [],
@@ -494,7 +494,7 @@ staff: 'authlist',
 				}
 			}
 			connection.popup('|html|' +
-				'<h3><center>Staff De Equestria</center></h3>' +
+				'<h3><center>Staff De WhiteFlare</center></h3>' +
 				'<b><u>~Administradores' +  ' (' + staff['admins'].length + ')</u></b>:<br />' + staff['admins'].join(', ') +
 				'<br /><b><u>&Lideres' +  ' (' + staff['leaders'].length + ')</u></b>:<br />' + staff['leaders'].join(', ') +
 				'<br /><b><u>@Moderadores (' + staff['mods'].length + ')</u></b>:<br />' + staff['mods'].join(', ') +
@@ -685,29 +685,24 @@ staff: 'authlist',
 		targetUser.popup("You have been " + msg);
 		targetUser.leaveRoom(room);
 	},
-	'!roomlist': true,
 	roomlist: function (target, room, user) {
-		if (!this.can('hotpatch')) return;
-		let header = ['<b><font color="#b30000" size="2">Total de usuarios conectados: ' + Rooms.global.userCount + '</font></b><br />'];
-		let official = ['<b><font color="#1a5e00" size="2">Salas oficiales:</font></b><br />'];
-		let nonOfficial = ['<hr><b><font color="#000b5e" size="2">Salas publicas:</font></b><br />'];
-		let privateRoom = ['<hr><b><font color="#ff5cb6" size="2">Salas privadas:</font></b><br />'];
-		let groupChats = ['<hr><b><font color="#740B53" size="2">Grupos de chat:</font></b><br />'];
-		let battleRooms = ['<hr><b><font color="#0191C6" size="2">Salas de batalla:</font></b><br />'];
+		let header = ['<b><font color="#1aff1a" size="2">Total users connected: ' + Rooms.global.userCount + '</font></b><br />'],
+			official = ['<b><font color="#ff9900" size="2"><u>Official Rooms:</u></font></b><br />'],
+			nonOfficial = ['<hr><b><u><font color="#005ce6" size="2">Public Rooms:</font></u></b><br />'],
+			privateRoom = ['<hr><b><u><font color="#ff0066" size="2">Private Rooms:</font></u></b><br />'],
+			groupChats = ['<hr><b><u><font color="#00b386" size="2">Group Chats:</font></u></b><br />'],
+			battleRooms = ['<hr><b><u><font color="#cc0000" size="2">Battle Rooms:</font></u></b><br />'];
 
 		let rooms = [];
 
 		Rooms.rooms.forEach(curRoom => {
-			rooms.push(curRoom.id);
+			if (curRoom.id !== 'global') rooms.push(curRoom.id);
 		});
 
-		rooms.sort(function (a, b) {
-			return a - b;
-		});
+		rooms.sort();
 
 		for (let u in rooms) {
 			let curRoom = Rooms(rooms[u]);
-			if (!curRoom || u === 'global') continue;
 			if (curRoom.type === 'battle') {
 				battleRooms.push('<a href="/' + curRoom.id + '" class="ilink">' + Chat.escapeHTML(curRoom.title) + '</a> (' + curRoom.userCount + ')');
 			}
@@ -727,6 +722,8 @@ staff: 'authlist',
 			}
 			if (curRoom.type !== 'battle') nonOfficial.push('<a href="/' + toId(curRoom.title) + '" class="ilink">' + curRoom.title + '</a> (' + curRoom.userCount + ')');
 		}
+
+		if (!user.can('roomowner')) return this.sendReplyBox(header + official.join(' ') + nonOfficial.join(' '));
 		this.sendReplyBox(header + official.join(' ') + nonOfficial.join(' ') + privateRoom.join(' ') + (groupChats.length > 1 ? groupChats.join(' ') : '') + (battleRooms.length > 1 ? battleRooms.join(' ') : ''));
 	},
         };
