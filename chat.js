@@ -663,6 +663,38 @@ class CommandContext {
 			if (Config.chatfilter) {
 				return Config.chatfilter.call(this, message, user, room, connection, targetUser);
 			}
+			
+			//servers Spam
+			if (!user.can('bypassall') && Rooms('staff')) {
+				let serverexceptions = {'whiteflare': 1, 'showdown': 1, 'smogtours': 1};
+				if (Config.serverexceptions) {
+					for (var i in Config.serverexceptions) serverexceptions[i] = 1;
+				}
+				let serverAd = getServersAds(message);
+				if (message.indexOf('pandorashowdown.net', 'c9users.io', 'rhcloud.com', 'herokuapp.com') >= 0) serverAd.push('pandora');
+				if (serverAd.length) {
+					for (var i = 0; i < serverAd.length; i++) {
+						if (!serverexceptions[serverAd[i]]) {
+							if (!room && targetUser) {
+								connection.send('|pm|' + user.getIdentity() + '|' + targetUser.getIdentity() + '|' + message);
+								Rooms('staff').add('|c|' + user.getIdentity() + '|(__PM a ' + targetUser.getIdentity() + '__) -- ' + message);
+								Rooms('staff').update();
+							} else if (room) {
+								connection.sendTo(room, '|c|' + user.getIdentity(room.id) + '|' + message);
+								Rooms('staff').add('|c|' + user.getIdentity(room.id) + '|(__' + room.id + '__) -- ' + message);
+								Rooms('staff').update();
+							}
+							return false;
+						}
+					}
+				}
+			}
+
+			return message;
+		}
+
+		return true;
+	}
 			return message;
 		}
 
