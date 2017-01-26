@@ -62,7 +62,7 @@ function newsDisplay(user) {
 
 			if (newsDis.length > 0) {
 				newsDis = newsDis.join('<hr>');
-				return Users(user).send(`|pm| Equestria News|${Users(user).getIdentity()}|/raw ${newsDis}`);
+				return Users(user).send(`|pm| WhiteFlare News|${Users(user).getIdentity()}|/raw ${newsDis}`);
 			}
 }
 
