@@ -245,7 +245,7 @@ class Game {
 	}
 
 	init() {
-		this.room.add("|uhtml|new" + this.room.unoGameId + "|<div class=\"broadcast-green\"><center><img src=\"http://www.theboardgamefamily.com/wp-content/uploads/2010/12/uno-mobile-game1.jpg\" height=150 width=160><br><font color=white><b>Un nuevo juego de uno esta empezando!</b></font><br><button style=\"height: 25px ; width: 50px ;\" name=\"send\" value=\"/uno join\">Entra</button></center></div>");
+		this.room.add("|uhtml|new" + this.room.unoGameId + "|<div class=\"broadcast-green\"><center><img src=\"http://www.theboardgamefamily.com/wp-content/uploads/2010/12/uno-mobile-game1.jpg\" height=150 width=160><br><font color=white><b>Un nuevo juego de uno esta empezando!</b></font><br><button style=\"height: 25px ; width: 55px ;\" name=\"send\" value=\"/uno join\">Entra</button></center></div>");
 	}
 
 	join(user) {
@@ -521,16 +521,16 @@ class Game {
 					this.room.add(this.uhtmlChange);
 				}
 				this.clearTimer();
-				this.room.add(getUserName(userid) + " a sido descalificad@.");
+				this.room.add(getUserName(userid) + " a sido descalificado.");
 				this.getNextPlayer();
 				this.initNextTurn();
 				return true;
 			}
-			this.room.add(getUserName(userid) + " a sido descalificad@.");
+			this.room.add(getUserName(userid) + " a sido descalificado.");
 			return true;
 		} else {
 			if (this.removePlayer(userid)) {
-				this.room.add(getUserName(userid) + " a sido descalificad@.");
+				this.room.add(getUserName(userid) + " a sido descalificado.");
 				this.end(this.list[0]);
 				return false;
 			}
@@ -548,12 +548,12 @@ class Game {
 		if (!this.uno) return false;
 		if (user.userid === this.uno) {
 			this.room.add("|raw|<b>UNO!</b>");
-			this.room.add("|uhtmlchange|" + this.room.unoGameId + "uno" + this.id + "|" + getUserName(this.uno) + " esta segur@.");
+			this.room.add("|uhtmlchange|" + this.room.unoGameId + "uno" + this.id + "|" + getUserName(this.uno) + " esta seguro.");
 			this.room.update();
 			this.uno = false;
 			this.initNextTurn();
 		} else if (this.list.indexOf(user.userid) > -1) {
-			this.room.add("|raw|" + getUserName(this.uno) + "  a si atrapad@ por no decir UNO y a sido forzado a tomar 2 cartas!");
+			this.room.add("|raw|" + getUserName(this.uno) + "  a si atrapado por no decir UNO y a sido forzado a tomar 2 cartas!");
 			this.room.add("|uhtmlchange|" + this.room.unoGameId + "uno" + this.id + "|" + getUserName(this.uno) + " was caught!");
 			this.giveCard(this.uno, 2, true);
 			this.uno = false;
