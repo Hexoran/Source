@@ -695,11 +695,6 @@ class CommandContext {
 
 		return true;
 	}
-			return message;
-		}
-
-		return true;
-	}
 	canEmbedURI(uri, isRelative) {
 		if (uri.startsWith('https://')) return uri;
 		if (uri.startsWith('//')) return uri;
