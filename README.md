@@ -1,1 +1,1 @@
-Servidor de Equestria para Pokémon Showdown.
+Servidor de WhiteFlare para Pokémon Showdown.
