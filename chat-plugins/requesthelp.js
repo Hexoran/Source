@@ -69,8 +69,8 @@ exports.commands = {
 		switch (cmd) {
 			case '':
 			case 'view':
-				if (!this.canBroadcast()) return;
-				if (Object.size(Reports) < 1) return this.sendReplyBox("There's currently no pending reports.");
+				if (!this.runBroadcast()) return;
+				if (Object.keys(Reports) < 1) return this.sendReplyBox("There's currently no pending reports.");
 				var output = '|raw|<table border="1" cellspacing ="0" cellpadding="3"><tr><th>ID</th><th>Reporter</th><th>Message</th><th>Report Time</th><th>Status</th></tr>';
 				for (var u in Object.keys(Reports)) {
 					var currentReport = Reports[Object.keys(Reports)[u]];
