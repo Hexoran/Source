@@ -78,8 +78,8 @@ function nightclubify(message) {
 	message = (~message.indexOf('|') ? message.substring(message.indexOf('|') + 1) : '');
 	return '|raw|<div style = "font-size: 11pt; margin: -3px; padding: 1px; background: black; color: white; text-shadow: 0px 0px 10px, 0px 0px 10px, 0px 0px 10px;">' +
 		'<small style = "color: white">' + rank + '</small>' +
-		'<button name = "parseCommand" value = "/user ' + user + '" style = "outline: none; cursor: pointer; font-size: inherit; text-shadow: inherit; font-family: inherit; background: none; padding: 0px; border: none; display: inline-block; color: ' + hashColor(toId(user)) + ';"><b>' + user + ':</b></button>' +
-		'<span style = "text-shadow: 0px 0px 10px, 0px 0px 10px;"> ' + formatMessage(Tools.escapeHTML(message)) + '</span></div>';
+		'<button name = "parseCommand" value = "/user ' + user + '" style = "outline: none; cursor: pointer; font-size: inherit; text-shadow: inherit; font-family: inherit; background: none; padding: 0px; border: none; display: inline-block; color: ' + Equ.Color(toId(user)) + ';"><b>' + user + ':</b></button>' +
+		'<span style = "text-shadow: 0px 0px 10px, 0px 0px 10px;"> ' + formatMessage(Chat.escapeHTML(message)) + '</span></div>';
 }
 
 Rooms.Room.prototype.add = function (message) {
