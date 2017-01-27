@@ -41,6 +41,24 @@ const fs = require('fs');
 const path = require('path');
 const parseEmoticons = require('./chat-plugins/emoticons').parseEmoticons;
 
+function getServersAds(text) {
+	let aux = text.toLowerCase();
+	let serversAds = [];
+	let spamindex;
+	let actualAd = '';
+	while (aux.indexOf(".psim.us") > -1) {
+		spamindex = aux.indexOf(".psim.us");
+		actualAd = '';
+		for (let i = spamindex - 1; i >= 0; i--) {
+			if (aux.charAt(i).replace(/[^a-z0-9]/g, '') === '') break;
+			actualAd = aux.charAt(i) + actualAd;
+		}
+		if (actualAd.length) serversAds.push(toId(actualAd));
+		aux = aux.substr(spamindex + ".psim.us".length);
+	}
+	return serversAds;
+}
+
 class PatternTester {
 	// This class sounds like a RegExp
 	// In fact, one could in theory implement it as a RegExp subclass
