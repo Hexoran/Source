@@ -8,7 +8,7 @@ exports.commands = {
 		this.sendReplyBox('<center><font size = 3>Name Colors:</font><br />' +
 		                  '<p> Los "Name Colors" son una Serie de comandos que te cambian el color de tu Nick.<br /> Solo Utiliza el Comando /name[color] mensaje para cambiarte el color' +
 		                  '<p>Colores disponibles: Rainbow, Blue, White, Grey, Black, Orange, Green, Purple, Red, Pink y Yellow</p>' +
-		                  '<font align="left" ><b>BY: Si encuentras algun problema,bug o tienes una Sugerencia, no dudes en avisar Con MistyCloud'
+		                  '<font align="left" ><b>BY: Si encuentras algun problema,bug o tienes una Sugerencia, no dudes en avisar Con Arocoz'
 						);
 	},
     
@@ -27,7 +27,7 @@ exports.commands = {
                                 }
                         }
                         if(target.indexOf('/me') > -1) {
-                                room.add('|raw|<small>' + user.group + '</small><b>' + userColor + '</b>: <i>' + Tools.escapeHTML(target.substring(3, target.length)) + '</i>');
+                                room.add('|raw|<small>' + user.group + '</small><b>' + userColor + '</b>: <i>' + Chat.escapeHTML(target.substring(3, target.length)) + '</i>');
                         } else {
                                 room.add('|raw|<small>' + user.group + '</small><b>' + userColor + '</b>: ' + target);
                         }
@@ -48,7 +48,7 @@ exports.commands = {
                                 }
                         }
                         if(target.indexOf('/me') > -1) {
-                                room.add('|raw|<small>' + user.group + '</small><b>' + userColor + '</b>: <i>' + Tools.escapeHTML(target.substring(3, target.length)) + '</i>');
+                                room.add('|raw|<small>' + user.group + '</small><b>' + userColor + '</b>: <i>' + Chat.escapeHTML(target.substring(3, target.length)) + '</i>');
                         } else {
                                 room.add('|raw|<small>' + user.group + '</small><b>' + userColor + '</b>: ' + target);
                         }
@@ -69,7 +69,7 @@ exports.commands = {
                                 }
                         }
                         if(target.indexOf('/me') > -1) {
-                                room.add('|raw|<small>' + user.group + '</small><b>' + userColor + '</b>: <i>' + Tools.escapeHTML(target.substring(3, target.length)) + '</i>');
+                                room.add('|raw|<small>' + user.group + '</small><b>' + userColor + '</b>: <i>' + Chat.escapeHTML(target.substring(3, target.length)) + '</i>');
                         } else {
                                 room.add('|raw|<small>' + user.group + '</small><b>' + userColor + '</b>: ' + target);
                         }
@@ -90,7 +90,7 @@ exports.commands = {
                                 }
                         }
                         if(target.indexOf('/me') > -1) {
-                                room.add('|raw|<small>' + user.group + '</small><b>' + userColor + '</b>: <i>' + Tools.escapeHTML(target.substring(3, target.length)) + '</i>');
+                                room.add('|raw|<small>' + user.group + '</small><b>' + userColor + '</b>: <i>' + Chat.escapeHTML(target.substring(3, target.length)) + '</i>');
                         } else {
                                 room.add('|raw|<small>' + user.group + '</small><b>' + userColor + '</b>: ' + target);
                         }
@@ -111,7 +111,7 @@ exports.commands = {
                                 }
                         }
                         if(target.indexOf('/me') > -1) {
-                                room.add('|raw|<small>' + user.group + '</small><b>' + userColor + '</b>: <i>' + Tools.escapeHTML(target.substring(3, target.length)) + '</i>');
+                                room.add('|raw|<small>' + user.group + '</small><b>' + userColor + '</b>: <i>' + Chat.escapeHTML(target.substring(3, target.length)) + '</i>');
                         } else {
                                 room.add('|raw|<small>' + user.group + '</small><b>' + userColor + '</b>: ' + target);
                         }
@@ -132,7 +132,7 @@ exports.commands = {
                                 }
                         }
                         if(target.indexOf('/me') > -1) {
-                                room.add('|raw|<small>' + user.group + '</small><b>' + userColor + '</b>: <i>' + Tools.escapeHTML(target.substring(3, target.length)) + '</i>');
+                                room.add('|raw|<small>' + user.group + '</small><b>' + userColor + '</b>: <i>' + Chat.escapeHTML(target.substring(3, target.length)) + '</i>');
                         } else {
                                 room.add('|raw|<small>' + user.group + '</small><b>' + userColor + '</b>: ' + target);
                         }
@@ -153,7 +153,7 @@ exports.commands = {
                                 }
                         }
                         if(target.indexOf('/me') > -1) {
-                                room.add('|raw|<small>' + user.group + '</small><b>' + userColor + '</b>: <i>' + Tools.escapeHTML(target.substring(3, target.length)) + '</i>');
+                                room.add('|raw|<small>' + user.group + '</small><b>' + userColor + '</b>: <i>' + Chat.escapeHTML(target.substring(3, target.length)) + '</i>');
                         } else {
                                 room.add('|raw|<small>' + user.group + '</small><b>' + userColor + '</b>: ' + target);
                         }
@@ -174,7 +174,7 @@ exports.commands = {
                                 }
                         }
                         if(target.indexOf('/me') > -1) {
-                                room.add('|raw|<small>' + user.group + '</small><b>' + userColor + '</b>: <i>' + Tools.escapeHTML(target.substring(3, target.length)) + '</i>');
+                                room.add('|raw|<small>' + user.group + '</small><b>' + userColor + '</b>: <i>' + Chat.escapeHTML(target.substring(3, target.length)) + '</i>');
                         } else {
                                 room.add('|raw|<small>' + user.group + '</small><b>' + userColor + '</b>: ' + target);
                         }
@@ -195,7 +195,7 @@ exports.commands = {
                                 }
                         }
                         if(target.indexOf('/me') > -1) {
-                                room.add('|raw|<small>' + user.group + '</small><b>' + userColor + '</b>: <i>' + Tools.escapeHTML(target.substring(3, target.length)) + '</i>');
+                                room.add('|raw|<small>' + user.group + '</small><b>' + userColor + '</b>: <i>' + Chat.escapeHTML(target.substring(3, target.length)) + '</i>');
                         } else {
                                 room.add('|raw|<small>' + user.group + '</small><b>' + userColor + '</b>: ' + target);
                         }
@@ -216,7 +216,7 @@ exports.commands = {
                                 }
                         }
                         if(target.indexOf('/me') > -1) {
-                                room.add('|raw|<small>' + user.group + '</small><b>' + userColor + '</b>: <i>' + Tools.escapeHTML(target.substring(3, target.length)) + '</i>');
+                                room.add('|raw|<small>' + user.group + '</small><b>' + userColor + '</b>: <i>' + Chat.escapeHTML(target.substring(3, target.length)) + '</i>');
                         } else {
                                 room.add('|raw|<small>' + user.group + '</small><b>' + userColor + '</b>: ' + target);
                         }
@@ -237,7 +237,7 @@ exports.commands = {
                                 }
                         }
                         if(target.indexOf('/me') > -1) {
-                                room.add('|raw|<small>' + user.group + '</small><b>' + userColor + '</b>: <i>' + Tools.escapeHTML(target.substring(3, target.length)) + '</i>');
+                                room.add('|raw|<small>' + user.group + '</small><b>' + userColor + '</b>: <i>' + Chat.escapeHTML(target.substring(3, target.length)) + '</i>');
                         } else {
                                 room.add('|raw|<small>' + user.group + '</small><b>' + userColor + '</b>: ' + target);
                         }
