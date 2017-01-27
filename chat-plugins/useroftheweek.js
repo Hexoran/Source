@@ -6,7 +6,7 @@ exports.commands = {
         if (!this.can('forcewin')) return false;
         if (!room.chatRoomData) return;
         if (!target) {
-            if (!this.canBroadcast()) return;
+            if (!this.runBroadcast()) return;
             if (!room.chatRoomData.user) return this.sendReplyBox("The User of the Week has not been set.");
             return this.sendReplyBox(
                 "El <strong>Usuario de la semana</strong>  es: " + room.chatRoomData.user
@@ -16,17 +16,17 @@ exports.commands = {
         if (target === 'off' || target === 'disable' || target === 'reset') {
             if (!room.chatRoomData.user) return this.sendReply("The User of the Week has already been reset.");
             delete room.chatRoomData.user;
-            this.sendReply("The User of the Week was reset by " + Tools.escapeHTML(user.name) + ".");
+            this.sendReply("The User of the Week was reset by " + Chat.escapeHTML(user.name) + ".");
             this.logModCommand(user.name + " reset the User of the Week.");
             Rooms.global.writeChatRoomData();
             return;
         }
-        room.chatRoomData.user = Tools.escapeHTML(target);
+        room.chatRoomData.user = Chat.escapeHTML(target);
         Rooms.global.writeChatRoomData();
         room.addRaw(
             "<div class=\"broadcast-green\"><strong>El usuario de la semana es: " + room.chatRoomData.user + ".</strong></div>"
         );
-        this.logModCommand(Tools.escapeHTML(user.name) + " updated the User of the Week to \"" + room.chatRoomData.user + "\".");
+        this.logModCommand(Chat.escapeHTML(user.name) + " updated the User of the Week to \"" + room.chatRoomData.user + "\".");
     },
     useroftheweekhelp: 'uotwhelp',
     uotwhelp: [
