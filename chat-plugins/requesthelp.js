@@ -43,7 +43,7 @@ exports.commands = {
 		if (!target) return this.sendReply("Usage: /requesthelp [message] - Requests help from Senior Staff. Please remember to include as much detail as possible with your request.");
 		if (target.length < 1) return this.sendReply("Usage: /requesthelp [message] - Requests help from Senior Staff. Please remember to include as much detail as possible with your request.");
 
-		var reportId = (Object.size(Reports) + 1);
+		var reportId = (Object.keys(Reports) + 1);
 		while (Reports[reportId]) reportId--;
 		Reports[reportId] = new Object();
 		Reports[reportId].reporter = user.name;
@@ -128,7 +128,7 @@ exports.commands = {
 				this.sendReply("That report has been deleted.");
 				break;
 			case 'help':
-				if (!this.canBroadcast()) return;
+				if (!this.runBroadcast()) return;
 				this.sendReplyBox("Report commands: <br />" +
 					"/report [message] - Adds a report to the system<br />" +
 					"/reports view - Views all current reports<br />" +
