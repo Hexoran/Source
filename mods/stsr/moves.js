@@ -1,3 +1,5 @@
+'use strict';
+
 exports.BattleMovedex = {
 	stealthrock: {
 		inherit: true,
