@@ -885,7 +885,7 @@ exports.Formats = [
 		name: "Random Haxmons",
 
 		searchShow: false,
-		team: 'random',
+		team: 'gen7',
 		ruleset: ['Pokemon', 'HP Percentage Mod', 'Sleep Clause Mod', 'Freeze Clause', 'Cancel Mod'],
 		onModifyMovePriority: -100,
 		onModifyMove: function (move) {
@@ -917,42 +917,42 @@ exports.Formats = [
 	},
 	{
 		name: "[Gen 7] Random Sky Battle",
-		mod: 'randoms',
+		mod: 'gen7',
 
 		searchShow: true,
-		team: 'randomSky',
+		team: 'random',
 		ruleset: ['PotD', 'Pokemon', 'Sleep Clause Mod', 'HP Percentage Mod', 'Cancel Mod'],
 	},
 	{
 		name: "[Gen 7] Random Ubers",
-		mod: 'randoms',
+		mod: 'gen7',
 
 		searchShow: true,
-		team: 'randomUber',
+		team: 'random',
 		ruleset: ['PotD', 'Pokemon', 'Sleep Clause Mod', 'HP Percentage Mod', 'Cancel Mod'],
 	},
 	{
 		name: "[Gen 7] Random LC",
-		mod: 'randoms',
+		mod: 'gen7',
 
 		searchShow: true,
-		team: 'randomLC',
+		team: 'random',
 		ruleset: ['PotD', 'Pokemon', 'Sleep Clause Mod', 'HP Percentage Mod', 'Cancel Mod'],
 	},
 	{
 		name: "[Gen 7] Random CAP",
-		mod: 'randoms',
+		mod: 'gen7',
 
 		searchShow: true,
-		team: 'randomCap',
+		team: 'random',
 		ruleset: ['PotD', 'Pokemon', 'Sleep Clause Mod', 'HP Percentage Mod', 'Cancel Mod'],
 	},
 	{
 		name: "[Gen 7] Random MonoGen",
-		mod: 'randoms',
+		mod: 'gen7',
 
 		searchShow: true,
-		team: 'randomMonoGen',
+		team: 'random',
 		ruleset: ['PotD', 'Pokemon', 'Sleep Clause Mod', 'HP Percentage Mod', 'Cancel Mod'],
 	},
 	{
@@ -983,10 +983,10 @@ exports.Formats = [
 	},
 	{
 		name: "[Gen 7] Challenge Cup Metronome",
-		mod: 'randoms',
+		mod: 'gen7',
 
 		searchShow: true,
-		team: 'randomMetro',
+		team: 'random',
 		ruleset: ['Pokemon', 'HP Percentage Mod', 'Cancel Mod'],
 	},
 
