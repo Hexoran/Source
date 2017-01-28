@@ -134,8 +134,7 @@ Profile.prototype.show = function (callback) {
 	return this.buttonAvatar() +
 		SPACE + this.name() + BR +
 		SPACE + this.group() + BR +
-		SPACE + this.money(Db.money.get(userid, 0)) + BR +
-		SPACE + this.seen(Db.seen.get(userid)) +
+		SPACE + this.money(Db('money').get(toId(target), 0);) + BR +
 		'<br clear="all">';
 };
 
