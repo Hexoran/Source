@@ -390,7 +390,7 @@ const messages = [
                     "- " + Equ.nameColor('Victinil', true) + " (Admin, Foro)<br />" +
 					"<br />" +
 					"<u>Contribuidores:</u><br />" +
-					"- " + Equ.nameColor('Sunix', true) + " (Staff del server.)<br />" +
+					"- " + Equ.nameColor('Sunix', true) + " (Staff del server)<br />" +
 					"<br />" +
 					"<u>Agradecimientos:</u><br />" +
 					"- Staff del servidor<br />" +
@@ -451,8 +451,10 @@ staff: 'authlist',
 			var staff = {
 				"admins": [],
 				"leaders": [],
+				"bots": [],
 				"mods": [],
 				"drivers": [],
+				"operators": [],
 				"voices": [],
 			};
 			var row = ('' + data).split('\n');
@@ -476,7 +478,11 @@ staff: 'authlist',
 					case '&':
 						if (~ignoreUsers.indexOf(personId)) break;
 						staff['leaders'].push(formatName(person));
-						break;		
+						break;	
+					case '*':
+						if (~ignoreUsers.indexOf(personId)) break;
+						staff['bots'].push(formatName(person));
+						break;
 					case '@':
 						if (~ignoreUsers.indexOf(personId)) break;
 						staff['mods'].push(formatName(person));
@@ -484,6 +490,10 @@ staff: 'authlist',
 					case '%':
 						if (~ignoreUsers.indexOf(personId)) break;
 						staff['drivers'].push(formatName(person));
+						break;
+					case '$':
+						if (~ignoreUsers.indexOf(personId)) break;
+						staff['operators'].push(formatName(person));
 						break;
 					case '+':
 						if (~ignoreUsers.indexOf(personId)) break;
@@ -497,8 +507,10 @@ staff: 'authlist',
 				'<h3><center>Staff De WhiteFlare</center></h3>' +
 				'<b><u>~Administradores' +  ' (' + staff['admins'].length + ')</u></b>:<br />' + staff['admins'].join(', ') +
 				'<br /><b><u>&Lideres' +  ' (' + staff['leaders'].length + ')</u></b>:<br />' + staff['leaders'].join(', ') +
+				'<br /><b><u>*Bots (' + staff['bots'].length + ')</u></b>:<br />' + staff['bots'].join(', ') +
 				'<br /><b><u>@Moderadores (' + staff['mods'].length + ')</u></b>:<br />' + staff['mods'].join(', ') +
 				'<br /><b><u>%Conductores (' + staff['drivers'].length + ')</u></b>:<br />' + staff['drivers'].join(', ') +
+				'<br /><b><u>$Operadores (' + staff['operators'].length + ')</u></b>:<br />' + staff['operators'].join(', ') +
 				'<br /><b><u>+Voceros (' + staff['voices'].length + ')</u></b>:<br />' + staff['voices'].join(', ') 
 			);
 		});
