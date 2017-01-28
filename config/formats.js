@@ -858,12 +858,12 @@ exports.Formats = [
 		ruleset: ['Pokemon', 'Sleep Clause Mod', 'Team Preview', 'HP Percentage Mod', 'Cancel Mod', 'Mega Rayquaza Clause'],
 	},
 	{
-		name: "[Gen 7] Random Monotype",
-		mod: 'randoms',
+		name: "[Gen 7] Monotype Random Battle",
 
-		searchShow: true,
-		team: 'randomMonoType',
-		ruleset: ['PotD', 'Pokemon', 'Sleep Clause Mod', 'HP Percentage Mod', 'Cancel Mod'],
+		mod: 'gen7',
+		team: 'random',
+		searchShow: false,
+		ruleset: ['Pokemon', 'Same Type Clause', 'Sleep Clause Mod', 'HP Percentage Mod', 'Cancel Mod'],
 	},
 	{
 		name: "Random Inverse Battle",
@@ -885,7 +885,7 @@ exports.Formats = [
 		name: "Random Haxmons",
 
 		searchShow: false,
-		team: 'random',
+		team: 'gen7',
 		ruleset: ['Pokemon', 'HP Percentage Mod', 'Sleep Clause Mod', 'Freeze Clause', 'Cancel Mod'],
 		onModifyMovePriority: -100,
 		onModifyMove: function (move) {
@@ -917,7 +917,7 @@ exports.Formats = [
 	},
 	{
 		name: "[Gen 7] Random Sky Battle",
-		mod: 'randoms',
+		mod: 'gen7',
 
 		searchShow: true,
 		team: 'randomSky',
@@ -925,7 +925,7 @@ exports.Formats = [
 	},
 	{
 		name: "[Gen 7] Random Ubers",
-		mod: 'randoms',
+		mod: 'gen7',
 
 		searchShow: true,
 		team: 'randomUber',
@@ -933,7 +933,7 @@ exports.Formats = [
 	},
 	{
 		name: "[Gen 7] Random LC",
-		mod: 'randoms',
+		mod: 'gen7',
 
 		searchShow: true,
 		team: 'randomLC',
@@ -941,7 +941,7 @@ exports.Formats = [
 	},
 	{
 		name: "[Gen 7] Random CAP",
-		mod: 'randoms',
+		mod: 'gen7',
 
 		searchShow: true,
 		team: 'randomCap',
@@ -949,7 +949,7 @@ exports.Formats = [
 	},
 	{
 		name: "[Gen 7] Random MonoGen",
-		mod: 'randoms',
+		mod: 'gen7',
 
 		searchShow: true,
 		team: 'randomMonoGen',
@@ -957,7 +957,7 @@ exports.Formats = [
 	},
 	{
 		name: "[Gen 7] Challenge Cup 2-vs-2",
-		mod: 'randoms',
+		mod: 'gen7',
 
 		gameType: 'doubles',
 		team: 'randomCC',
@@ -983,7 +983,7 @@ exports.Formats = [
 	},
 	{
 		name: "[Gen 7] Challenge Cup Metronome",
-		mod: 'randoms',
+		mod: 'gen7',
 
 		searchShow: true,
 		team: 'randomMetro',
