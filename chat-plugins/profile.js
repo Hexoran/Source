@@ -1,7 +1,7 @@
 'use strict';
 /*eslint no-restricted-modules: [0]*/
 
-let color = require('../config/color');
+let color = Equ.Color
 let moment = require('moment');
 
 let BR = '<br>';
@@ -86,7 +86,7 @@ function label(text) {
 }
 
 function currencyName(amount) {
-	let name = " buck";
+	let name = " PD";
 	return amount === 1 ? name : name + "s";
 }
 
@@ -126,12 +126,6 @@ Profile.prototype.money = function (amount) {
 
 Profile.prototype.name = function () {
 	return label('Name') + bold(font(color(toId(this.username)), this.username));
-};
-
-Profile.prototype.seen = function (timeAgo) {
-	if (this.isOnline) return label('Last Seen') + font('#2ECC40', 'Currently Online');
-	if (!timeAgo) return label('Last Seen') + 'Never';
-	return label('Last Seen') + moment(timeAgo).fromNow();
 };
 
 Profile.prototype.show = function (callback) {
