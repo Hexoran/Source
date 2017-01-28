@@ -312,15 +312,15 @@ hide: 'hideauth',
 		if (room.id === '' && this.broadcasting) {
 			return true;
 		} else {
-			var buttonStyle = 'border-radius:5px; border: 2px inset black; background: #89808d ; color:black; padding: 3px';
+			var buttonStyle = 'border-radius:5px; border: 2px inset black; background: #FF335A ; color:black; padding: 3px';
 			var topStyle = 'background: url(http://i.imgur.com/FD2q9yD.jpg) ; border: 1px solid black; padding: 2px; border-radius: 5px;';
-			var descStyle = 'border-radius: 5px; border: 1px solid black ; background: #89808d; color: #000; border-collapse: collapse;';
+			var descStyle = 'border-radius: 5px; border: 1px solid black ; background: #FF335A; color: #000; border-collapse: collapse;';
 			var top = '<td><center><table style="' + topStyle + '" border="5" cellspacing ="5" cellpadding="5"><tr><th>Objeto</th><th>Descripcion del objeto</th><th>Precio</th></tr>';
 			var bottom = '<table><td style="' + descStyle + '">Para comprar un item de la tienda  use /buy comando. <b>NO</b> nos hacemos responsables por objetos comprados erroneamente.</td>';
 			function table(item, desc, price) {
 				return '<tr><center><td style="' + descStyle + '"><center><button title="Da click para comprar un ' + item + ' de la tienda" style="' + buttonStyle + '" name="send" value="/checkbuy ' + item + '">' + item + '</button><center></td><td style="' + descStyle + '">' + desc + '</center></td><td style="' + descStyle + '">' + price + '</td></tr>';
 			}
-			return this.sendReply('|raw|<table><th style="background: rgba(255, 217, 234, 0.47);border: 1px solid #222222; border-bottom-width: 10px; color: #222222; padding: 10px; font-size: 13pt;"><center>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Tienda de WhiteFlare&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</center></th></table>' +
+			return this.sendReply('|raw|<table><th style="background: #FF335A;border: 1px solid #222222; border-bottom-width: 10px; color: #222222; padding: 10px; font-size: 13pt;"><center>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Tienda de WhiteFlare&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</center></th></table>' +
 			'<div style="max-height: 310px; overflow-y: scroll;">' +
 				top +
 				table("Simbolo","Compra el acceso al comado /customsymbol que permite elegir un símbolo (excepto staff) para aparecer en lo alto de la lista de usuarios.",1000) +
@@ -330,7 +330,7 @@ hide: 'hideauth',
 				table("Icon", "Compra un icono personalizado. De medida (32x32) y acorde a las reglas del servidor. Contactar con un Admin para obtener este artículo.	", 1000) +
 				table("Custom Avatar", "Compra un avatar personalizado. Preferiblemente debe ser una imagen de pequeñas dimensiones y acorde a las reglas del servidor. Debe de ser de medida 80x80 Contactar con un Admin para obtener este artículo.	", 1500) +
 				table("Custom Color", "Compra un cambio de color para tu nick", 1200) +
-				table("Sala", "Compra una Sala de chat. Será pública o privada en función del motivo de su compra. Si se detecta spam de comandos / saturación del modlog será borrada. (Una por persona)", 2500) +
+				table("Sala", "Compra una Sala de chat. Será pública o privada en función del motivo de su compra. Si se detecta spam de comandos / saturación del modlog será borrada. (Una por persona)", 4000) +
 				'</div>' +
 				bottom
 
