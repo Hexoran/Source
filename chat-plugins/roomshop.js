@@ -23,18 +23,18 @@ function saveShop() {
 }
 
 function getName(user) {
-	return '<font color="' + hashColor(user) + '">' + Tools.escapeHTML(user) + '</font>';
+	return '<font color="' + Equ.Color(user) + '">' + Chat.escapeHTML(user) + '</font>';
 }
 
 function getRoomShop(room) {
-	let output = "<center><b><u>" + Tools.escapeHTML(room.title) + " Room Shop</u></b><br />" +
+	let output = "<center><b><u>" + Chat.escapeHTML(room.title) + " Room Shop</u></b><br />" +
 	'<table border="1" cellspacing ="0" cellpadding="3">' +
 	'<tr><th>Articulo</th><th>Descripcion</th><th>Precio</th></tr>';
 	for (let i in RoomShop[room.id]) {
 		let item = RoomShop[room.id][i];
 		let name = item[0], desc = item[1], price = item[2];
-		output += '<tr><td><button name="send" value="/roomshop buy, ' + Tools.escapeHTML(name) + '">' + Tools.escapeHTML(name) + '</button></td><td>' +
-		Tools.escapeHTML(desc) + '</td><td>' + price + '</td></tr>';
+		output += '<tr><td><button name="send" value="/roomshop buy, ' + Chat.escapeHTML(name) + '">' + Chat.escapeHTML(name) + '</button></td><td>' +
+		Chat.escapeHTML(desc) + '</td><td>' + price + '</td></tr>';
 	}
 	return output + '</table><font size=1>Nota: De acuerdo con las reglas del servidor, el staff global no son responsables de las estafas a traves de una tienda de sala. Sin embargo, si es lo suficientemente grave, informe a un staff global y si habia roto una regla, se tomaran las medidas.</font></center>';
 }
@@ -45,7 +45,7 @@ exports.commands = {
 		if (!room.isOfficial && !Users.usergroups[room.founder]) return this.errorReply("This room does not qualify to have a room shop.");
 		if (!target || !target.trim()) {
 			if (!RoomShop[room.id] || Object.keys(RoomShop[room.id]).length < 1) return this.errorReply("This room does not have any items in it's room shop at this time.");
-			if (!this.canBroadcast()) return;
+			if (!this.runBroadcast()) return;
 			return this.sendReplyBox(getRoomShop(room));
 		}
 
@@ -88,7 +88,7 @@ exports.commands = {
 			price = RS[toId(item)][2];
 			if (Shop.getUserMoney(user.name) < price) return this.errorReply("No tienes suficiente dinero para comprar un " + item + ". Necesitas " + (price - Shop.getUserMoney(user.name)) + " mas PokeDolares para comprar este articulo.");
 			this.parse('/tb ' + room.founder + ', ' + price);
-			room.add("|raw|<b><u>Room Shop</u>: " + hashColor(user.name) + "</b> ha comprado un <u>" + Tools.escapeHTML(item) + "</u> de el roomshop por " + price + " Pokedolare" + (price > 1 ? "s" : "") + ".").update();
+			room.add("|raw|<b><u>Room Shop</u>: " + Equ.Color(user.name) + "</b> ha comprado un <u>" + Chat.escapeHTML(item) + "</u> de el roomshop por " + price + " Pokedolare" + (price > 1 ? "s" : "") + ".").update();
 			this.privateModCommand("(" + user.name + " ha comprado un articulo " + item + " de el room shop.)");
 			break;
 		case 'help':
