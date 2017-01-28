@@ -1,3 +1,5 @@
+'use strict';
+
 exports.BattleFormats = {
 	teampreview2v2: {
 		onStartPriority: -10,
