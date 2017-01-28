@@ -511,7 +511,7 @@ staff: 'authlist',
 				'<br /><b><u>@Moderadores (' + staff['mods'].length + ')</u></b>:<br />' + staff['mods'].join(', ') +
 				'<br /><b><u>%Conductores (' + staff['drivers'].length + ')</u></b>:<br />' + staff['drivers'].join(', ') +
 				'<br /><b><u>$Operadores (' + staff['operators'].length + ')</u></b>:<br />' + staff['operators'].join(', ') +
-				'<br /><b><u>+Voceros (' + staff['voices'].length + ')</u></b>:<br />' + staff['voices'].join(', ') 
+				'<br /><b><u>+Voceros (' + staff['voices'].length + ')</u></b>:<br />' + staff['voices'].join(', ') +
 				'<br /><br />(<b>Bold</b> / <i>italic</i> = actualmente en linea)'
 			);
 		});
