@@ -1,3 +1,5 @@
+'use strict';
+
 exports.BattleScripts = {
 	gen: 6,
 	runMegaEvo: function (pokemon) {
