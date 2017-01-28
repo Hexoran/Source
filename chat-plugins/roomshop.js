@@ -14,7 +14,7 @@
 
 const fs = require('fs');
 
-const ITEM_CAP = 10; // maximum items a room shop can have
+const ITEM_CAP = 8; // maximum items a room shop can have
 const PATH = 'config/roomshops.json';
 const RoomShop = require('../' + PATH);
 
@@ -29,14 +29,14 @@ function getName(user) {
 function getRoomShop(room) {
 	let output = "<center><b><u>" + Chat.escapeHTML(room.title) + " Room Shop</u></b><br />" +
 	'<table border="1" cellspacing ="0" cellpadding="3">' +
-	'<tr><th>Articulo</th><th>Descripcion</th><th>Precio</th></tr>';
+	'<tr><th>Item</th><th>Description</th><th>Price</th></tr>';
 	for (let i in RoomShop[room.id]) {
 		let item = RoomShop[room.id][i];
 		let name = item[0], desc = item[1], price = item[2];
 		output += '<tr><td><button name="send" value="/roomshop buy, ' + Chat.escapeHTML(name) + '">' + Chat.escapeHTML(name) + '</button></td><td>' +
 		Chat.escapeHTML(desc) + '</td><td>' + price + '</td></tr>';
 	}
-	return output + '</table><font size=1>Nota: De acuerdo con las reglas del servidor, el staff global no son responsables de las estafas a traves de una tienda de sala. Sin embargo, si es lo suficientemente grave, informe a un staff global y si habia roto una regla, se tomaran las medidas.</font></center>';
+	return output + '</table><font size=1>Note: As per server rules, global staff are not responsible for scams via a room shop.  However, if severe enough, report it to a global staff and if there was a rule broken, action will be taken.</font></center>';
 }
 
 exports.commands = {
@@ -64,7 +64,7 @@ exports.commands = {
 			if (!item || !desc || !price) return this.sendReply("Usage: /roomshop add, [item], [description], [price] - Adds an item to the roomshop.");
 			if (item.lenth > 15) return this.errorReply("Item names cannot exceed 15 characters.");
 			if (desc.length > 200) return this.errorReply("Item descriptions cannot exceed 200 characters.");
-			if (isNaN(price) || price < 1 || ~price.indexOf('.') || price > 6000) return this.errorReply("The item's price must be a positive integer, and cannot exceed 6000.");
+			if (isNaN(price) || price < 1 || ~price.indexOf('.') || price > 1000) return this.errorReply("The item's price must be a positive integer, and cannot exceed 1000.");
 			RS[toId(item)] = [item, desc, Number(price)];
 			saveShop();
 			this.sendReply("You have successfully added the item '" + item + "' to your room shop.");
@@ -86,10 +86,10 @@ exports.commands = {
 			if (!RS[item]) return this.errorReply("This item is not in the room shop. Check spelling?");
 			item = RS[item][0];
 			price = RS[toId(item)][2];
-			if (Shop.getUserMoney(user.name) < price) return this.errorReply("No tienes suficiente dinero para comprar un " + item + ". Necesitas " + (price - Shop.getUserMoney(user.name)) + " mas PokeDolares para comprar este articulo.");
+			if (Gold.readMoney(user.userid) < price) return this.errorReply("You do not have enough bucks to buy " + item + ". You need " + (price - Gold.readMoney(user.userid)) + " more bucks to buy this item.");
 			this.parse('/tb ' + room.founder + ', ' + price);
-			room.add("|raw|<b><u>Room Shop</u>: " + Equ.Color(user.name) + "</b> ha comprado un <u>" + Chat.escapeHTML(item) + "</u> de el roomshop por " + price + " Pokedolare" + (price > 1 ? "s" : "") + ".").update();
-			this.privateModCommand("(" + user.name + " ha comprado un articulo " + item + " de el room shop.)");
+			room.add("|raw|<b><u>Room Shop</u>: " + getName(user.name) + "</b> has bought a(n) <u>" + Chat.escapeHTML(item) + "</u> from the room shop for " + price + " buck" + (price > 1 ? "s" : "") + ".").update();
+			this.privateModCommand("(" + user.name + " has bought a(n) " + item + " from the room shop.)");
 			break;
 		case 'help':
 			this.parse('/help roomshop');
@@ -104,9 +104,9 @@ exports.commands = {
 		}
 	},
 	roomshophelp: ["This plugin allows certain rooms to have their own room shop.  Commands include...",
-		"/roomshop add, [item], [description], [price] - Coloca un articulo nuevo en el roomshop.  Requiere Room Founder.",
-		"/roomshop remove, [item] - Remueve un articulo del roomshop. Requiere Room Founder.",
-		"/roomshop buy, [item] - Compra un articulo del roomshop.",
-		"/roomshop - Muestra el roomshop de la sala.",
+		"/roomshop add, [item], [description], [price] - Adds an item to the roomshop.  Requires Room Founder.",
+		"/roomshop remove, [item] - Removes an item from the roomshop. Requires Room Founder.",
+		"/roomshop buy, [item] - Buys an item from the shop.",
+		"/roomshop - Displays a room's room shop.",
 	],
 };
