@@ -1,3 +1,5 @@
+'use strict';
+
 exports.BattleScripts = {
 	randomSkyTeam: function (side) {
 		let keys = [];
