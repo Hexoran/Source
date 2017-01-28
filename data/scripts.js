@@ -2202,7 +2202,6 @@ exports.BattleScripts = {
 			Unreleased: 75,
 			CAP: 75,
 			Uber: 73,
-			'Bank-Uber': 73,
 			AG: 71,
 		};
 		let customScale = {
