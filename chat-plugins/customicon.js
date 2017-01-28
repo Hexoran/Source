@@ -79,7 +79,7 @@ exports.commands = {
             let user1 = (Users.getExact(target[0]) ? Users.getExact(target[0]).name : target[0]);
     		let user2 = (Users.getExact(target[1]) ? Users.getExact(target[1]).name : target[1]);
     		if (!toId(user1) || !toId(user2)) return this.sendReply('/custom color move User 1, User 2, hex.');
-	 	 Rooms.rooms.get('staff').add('|raw|<small>[CUSTOMICON] <b><font style="color:' + Rose.Color(user.name) + '">' + user.name + '</font></b> le ha movido un color personalizado de ' + target[0] + ' a '  + target[1] + ' <a href="' + target[2] + '">(IMG)</a></small>');
+	 	 Rooms.rooms.get('staff').add('|raw|<small>[CUSTOMICON] <b><font style="color:' + Equ.Color(user.name) + '">' + user.name + '</font></b> le ha movido un color personalizado de ' + target[0] + ' a '  + target[1] + ' <a href="' + target[2] + '">(IMG)</a></small>');
 		   Rooms.rooms.get('staff').update();
 		   delete icons[toId(target[0])];
     	 icons[toId(target[1])] = target[2];
@@ -92,11 +92,11 @@ exports.commands = {
 			
 			if (!target[1]) return this.parse('/icon');
 			if (toId(target[0]).length > 19) return this.errorReply('El nombre de usuario es demasiado largo.');
-			this.sendReply('|raw|El icono personalizado de <b><font color="' + Rose.Color(toId(target[1])) + '">' + Chat.escapeHTML(target[0]) + '</font></b> ha sido establecido exitosamente.');
+			this.sendReply('|raw|El icono personalizado de <b><font color="' + Equ.Color(toId(target[1])) + '">' + Chat.escapeHTML(target[0]) + '</font></b> ha sido establecido exitosamente.');
 			this.privateModCommand('(' + target[0] + ' ha recibido un icono personalizado de ' + user.name + '.)');
 			if (Users(target) && Users(target).connected) Users(target).popup('|modal||html|' + user.name + ' te ha establecido un icono personalizado.');
 			logMoney(user.name + ' le ha establecido un icono personalizado a ' + target[0] + '.');
-			Rooms.rooms.get('staff').add('|raw|<small>[ICONS] <b><font style="color:' + Rose.Color(toId(user.name)) + '">' + user.name + '</font></b> le ha establecido un icono a ' + target[0] + ' <a href="' + target[1] + '">(IMG)</a></small>');
+			Rooms.rooms.get('staff').add('|raw|<small>[ICONS] <b><font style="color:' + Equ.Color(toId(user.name)) + '">' + user.name + '</font></b> le ha establecido un icono a ' + target[0] + ' <a href="' + target[1] + '">(IMG)</a></small>');
 			Rooms.rooms.get('staff').update();
 			icons[toId(target[0])] = target[1];
 			updateIcons();
