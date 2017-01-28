@@ -916,33 +916,6 @@ exports.Formats = [
 		ruleset: ['Pokemon', 'HP Percentage Mod', 'Cancel Mod'],
 	},
 	{
-		name: "[Gen 7] Random Ubers",
-		mod: 'gen7',
-
-		searchShow: true,
-		team: 'random',
-		ruleset: ['PotD', 'Pokemon', 'Sleep Clause Mod', 'HP Percentage Mod', 'Cancel Mod'],
-		banlist: ['Allow Ubers'],
-	},
-	{
-		name: "[Gen 7] Random LC",
-		mod: 'gen7',
-
-		searchShow: true,
-		team: 'random',
-		ruleset: ['PotD', 'Pokemon', 'Sleep Clause Mod', 'HP Percentage Mod', 'Cancel Mod'],
-		banlist: ['Allow LC'],
-	},
-	{
-		name: "[Gen 7] Random CAP",
-		mod: 'gen7',
-
-		searchShow: true,
-		team: 'random',
-		ruleset: ['PotD', 'Pokemon', 'Sleep Clause Mod', 'HP Percentage Mod', 'Cancel Mod'],
-		banlist: ['Allow CAP'],
-	},
-	{
 		name: "[Gen 7] Challenge Cup 2-vs-2",
 		mod: 'gen7',
 
