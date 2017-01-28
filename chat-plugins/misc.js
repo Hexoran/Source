@@ -391,6 +391,7 @@ const messages = [
 					"<br />" +
 					"<u>Contribuidores:</u><br />" +
 					"- " + Equ.nameColor('Sunix', true) + " (Staff del server)<br />" +
+					"- " + Equ.nameColor('Light Angel 1', true) + " (Staff del server)<br />" +
 					"<br />" +
 					"<u>Agradecimientos:</u><br />" +
 					"- Staff del servidor<br />" +
@@ -504,7 +505,7 @@ staff: 'authlist',
 				}
 			}
 			connection.popup('|html|' +
-				'<h3><center>Staff De WhiteFlare</center></h3>' +
+				'<h3><center>Staff Del Servidor WhiteFlare</center></h3>' +
 				'<b><u>~Administradores' +  ' (' + staff['admins'].length + ')</u></b>:<br />' + staff['admins'].join(', ') +
 				'<br /><b><u>&Lideres' +  ' (' + staff['leaders'].length + ')</u></b>:<br />' + staff['leaders'].join(', ') +
 				'<br /><b><u>*Bots (' + staff['bots'].length + ')</u></b>:<br />' + staff['bots'].join(', ') +
