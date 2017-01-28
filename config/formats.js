@@ -916,20 +916,13 @@ exports.Formats = [
 		ruleset: ['Pokemon', 'HP Percentage Mod', 'Cancel Mod'],
 	},
 	{
-		name: "[Gen 7] Random Sky Battle",
-		mod: 'gen7',
-
-		searchShow: true,
-		team: 'random',
-		ruleset: ['PotD', 'Pokemon', 'Sleep Clause Mod', 'HP Percentage Mod', 'Cancel Mod'],
-	},
-	{
 		name: "[Gen 7] Random Ubers",
 		mod: 'gen7',
 
 		searchShow: true,
 		team: 'random',
 		ruleset: ['PotD', 'Pokemon', 'Sleep Clause Mod', 'HP Percentage Mod', 'Cancel Mod'],
+		banlist: ['Allow Ubers'],
 	},
 	{
 		name: "[Gen 7] Random LC",
@@ -938,6 +931,7 @@ exports.Formats = [
 		searchShow: true,
 		team: 'random',
 		ruleset: ['PotD', 'Pokemon', 'Sleep Clause Mod', 'HP Percentage Mod', 'Cancel Mod'],
+		banlist: ['Allow LC'],
 	},
 	{
 		name: "[Gen 7] Random CAP",
@@ -946,14 +940,7 @@ exports.Formats = [
 		searchShow: true,
 		team: 'random',
 		ruleset: ['PotD', 'Pokemon', 'Sleep Clause Mod', 'HP Percentage Mod', 'Cancel Mod'],
-	},
-	{
-		name: "[Gen 7] Random MonoGen",
-		mod: 'gen7',
-
-		searchShow: true,
-		team: 'random',
-		ruleset: ['PotD', 'Pokemon', 'Sleep Clause Mod', 'HP Percentage Mod', 'Cancel Mod'],
+		banlist: ['Allow CAP'],
 	},
 	{
 		name: "[Gen 7] Challenge Cup 2-vs-2",
@@ -980,14 +967,6 @@ exports.Formats = [
 			battle: 1,
 		},
 		ruleset: ['Pokemon', 'HP Percentage Mod', 'Cancel Mod', 'Team Preview'],
-	},
-	{
-		name: "[Gen 7] Challenge Cup Metronome",
-		mod: 'gen7',
-
-		searchShow: true,
-		team: 'random',
-		ruleset: ['Pokemon', 'HP Percentage Mod', 'Cancel Mod'],
 	},
 
 	// Local Metagames
