@@ -8,9 +8,10 @@ let shop = [
 	['custom color', 'Buys an custom avatar to be applied to your name (You supply. Images larger than 80x80 may not show correctly)',1200 ],
 	['mover avatar', 'Buys an custom avatar to be applied to your name (You supply. Images larger than 80x80 may not show correctly)',1500 ],
 	['custom avatar', 'Buys a trainer card which shows information through a command. (You supply, can be refused)', 1000],
+	['trainercard', 'Buys a trainer card which shows information through a command. (You supply, can be refused)', 1000],
 	['Arreglo', 'Staff member will help set up roomintros and anything else needed in a room. Response may not be immediate.', 500],
 	['Icon', 'Buy a custom icon that can be applied to the rooms you want. You must take into account that the provided image should be 32 x 32', 1000],
-	['Sala', 'Buys a chatroom for you to own. (within reason, can be refused)', 2500],
+	['Sala', 'Buys a chatroom for you to own. (within reason, can be refused)', 4000],
 ];
 
 let shopDisplay = getShopDisplay(shop);
@@ -311,9 +312,9 @@ hide: 'hideauth',
 		if (room.id === '' && this.broadcasting) {
 			return true;
 		} else {
-			var buttonStyle = 'border-radius:5px; border: 2px inset black; background: rgba(255, 217, 234, 0.71) ; color:black; padding: 3px';
+			var buttonStyle = 'border-radius:5px; border: 2px inset black; background: #89808d ; color:black; padding: 3px';
 			var topStyle = 'background: url(http://i.imgur.com/FD2q9yD.jpg) ; border: 1px solid black; padding: 2px; border-radius: 5px;';
-			var descStyle = 'border-radius: 5px; border: 1px solid black ; background: rgba(255, 217, 234, 0.71); color: #000; border-collapse: collapse;';
+			var descStyle = 'border-radius: 5px; border: 1px solid black ; background: #89808d; color: #000; border-collapse: collapse;';
 			var top = '<td><center><table style="' + topStyle + '" border="5" cellspacing ="5" cellpadding="5"><tr><th>Objeto</th><th>Descripcion del objeto</th><th>Precio</th></tr>';
 			var bottom = '<table><td style="' + descStyle + '">Para comprar un item de la tienda  use /buy comando. <b>NO</b> nos hacemos responsables por objetos comprados erroneamente.</td>';
 			function table(item, desc, price) {
@@ -325,6 +326,7 @@ hide: 'hideauth',
 				table("Simbolo","Compra el acceso al comado /customsymbol que permite elegir un símbolo (excepto staff) para aparecer en lo alto de la lista de usuarios.",1000) +
 				table("Arreglo", "Compra el derecho de cambiar algo que anteriormente ya compraste (customcolor, customavatar, etc)", 500) +
 				table("Mover Avatar", "Cambia tu avatar personalizado a otro de tus alts.", 1000) +
+				table("Tarjeta de Entrenador", "Compra una tarjeta de entrenador, requiere el html de tu tarjeta.", 1000) +      
 				table("Icon", "Compra un icono personalizado. De medida (32x32) y acorde a las reglas del servidor. Contactar con un Admin para obtener este artículo.	", 1000) +
 				table("Custom Avatar", "Compra un avatar personalizado. Preferiblemente debe ser una imagen de pequeñas dimensiones y acorde a las reglas del servidor. Debe de ser de medida 80x80 Contactar con un Admin para obtener este artículo.	", 1500) +
 				table("Custom Color", "Compra un cambio de color para tu nick", 1200) +
