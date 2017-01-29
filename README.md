@@ -1,1 +1,1 @@
-Servidor de WhiteFlare para Pokémon Showdown.
+Servidor de Lightning para Pokémon Showdown.
