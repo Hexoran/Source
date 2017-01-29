@@ -379,6 +379,8 @@ hide: 'hideauth',
 				table("Icon", "Compra un icono personalizado. De medida (32x32) y acorde a las reglas del servidor. Contactar con un Admin para obtener este artículo.	", 1000) +
 				table("Custom Avatar", "Compra un avatar personalizado. Preferiblemente debe ser una imagen de pequeñas dimensiones y acorde a las reglas del servidor. Debe de ser de medida 80x80 Contactar con un Admin para obtener este artículo.	", 1500) +
 				table("Custom Color", "Compra un cambio de color para tu nick", 1200) +
+				table("Emoticon", "Compra un emoticon nuevo para el server", 300) +
+				table("Frase de Entrada", "Compra una frase para cuando entras al server", 1200) +
 				table("Sala", "Compra una Sala de chat. Será pública o privada en función del motivo de su compra. Si se detecta spam de comandos / saturación del modlog será borrada. (Una por persona)", 4000) +
 				'</div>' +
 				bottom
