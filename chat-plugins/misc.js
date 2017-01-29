@@ -403,7 +403,7 @@ const messages = [
 		if (!this.canTalk()) return this.errorReply("You cannot do this while unable to talk.");
 		if (Users.ShadowBan.checkBanned(user)) return;
 		target = this.splitTarget(target);
-		if (this.targetUsername === 'whiteflarenews') return this.errorReply("Estas son las news del servidor, no una persona");
+		if (this.targetUsername === 'lightningnews') return this.errorReply("Estas son las news del servidor, no una persona");
 		if (this.targetUsername === 'mensajespendientes') return this.errorReply("¿En serio?, hablando con los mensajes pendientes?, busca un usuario de verdad! ¬¬'");
 		let targetUser = this.targetUsername;
 		let id = toId(targetUser);
@@ -505,7 +505,7 @@ staff: 'authlist',
 				}
 			}
 			connection.popup('|html|' +
-				'<h3><center>Staff Del Servidor WhiteFlare</center></h3>' +
+				'<h3><center>Staff Del Servidor Lightning</center></h3>' +
 				'<b><u>~Administradores' +  ' (' + staff['admins'].length + ')</u></b>:<br />' + staff['admins'].join(', ') +
 				'<br /><b><u>&Lideres' +  ' (' + staff['leaders'].length + ')</u></b>:<br />' + staff['leaders'].join(', ') +
 				'<br /><b><u>*Bots (' + staff['bots'].length + ')</u></b>:<br />' + staff['bots'].join(', ') +
