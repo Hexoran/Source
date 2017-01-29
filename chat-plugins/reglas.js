@@ -3,7 +3,7 @@
 exports.commands = {
 	reglas: 'reglas',
 	reglas: function (target, room, user) {
-		this.popupReply("|html|" + "<font size=4><b>Reglas del Servidor WhiteFlare:</b></font><br />" +
+		this.popupReply("|html|" + "<font size=4><b>Reglas del Servidor Lightning:</b></font><br />" +
 					"<br />" +
 					"<b>1.</b> Esta totalmente prohibido hablar de temas sexuales explícitos (+18). En caso de que esta norma se incumpla se penalizará con un ban inmediato o sera decidido entre el staff.<br />" +
 					"<br />" +
