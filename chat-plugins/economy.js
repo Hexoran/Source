@@ -9,6 +9,8 @@ let shop = [
 	['mover avatar', 'Buys an custom avatar to be applied to your name (You supply. Images larger than 80x80 may not show correctly)',1500 ],
 	['custom avatar', 'Buys a trainer card which shows information through a command. (You supply, can be refused)', 1000],
 	['trainercard', 'Buys a trainer card which shows information through a command. (You supply, can be refused)', 1000],
+	['emoticon', 'Buys a trainer card which shows information through a command. (You supply, can be refused)', 1000],
+	['phrase de entrada', 'Buys a trainer card which shows information through a command. (You supply, can be refused)', 1000],
 	['Arreglo', 'Staff member will help set up roomintros and anything else needed in a room. Response may not be immediate.', 500],
 	['Icon', 'Buy a custom icon that can be applied to the rooms you want. You must take into account that the provided image should be 32 x 32', 1000],
 	['Sala', 'Buys a chatroom for you to own. (within reason, can be refused)', 4000],
@@ -182,35 +184,82 @@ hide: 'hideauth',
 		user.isHiding = false;
 		this.sendReply("You have now revealed your auth symbol.");
 	},
-	customsymbol: function (target, room, user) {
-		if (!user.canCustomSymbol && user.id !== user.userid) return this.errorReply("You need to buy this item from the shop.");
-		if (!target || target.length > 1) return this.parse('/help customsymbol');
-		if (target.match(/[A-Za-z\d]+/g) || '|?!+$%@*\u2605&~#\u03c4\u00a3\u03dd\u03b2\u039e\u03a9\u0398\u03a3\u00a9'.indexOf(target) >= 0) {
-			return this.errorReply("Sorry, but you cannot change your symbol to this for safety/stability reasons.");
+	symbolpermision: function (target, room, user) {
+		if (!this.can('givemoney')) return false;
+		let params = target.split(',');
+		if (!params || params.length !== 2) return this.sendReply("Usage: /symbolpermision user, [on/off]");
+		let permision = false;
+		if (toId(params[1]) !== 'on' && toId(params[1]) !== 'off') return this.sendReply("Usage: /symbolpermision user, [on/off]");
+		if (toId(params[1]) === 'on') permision = true;
+		if (permision) {
+			let userh = Users.getExact(params[0]);
+			if (!userh || !userh.connected) return this.sendReply("The user does not exist or is not available");
+			if (Shop.setSymbolPermision(params[0], permision)) return this.sendReply("Permiso de customsymbol dado a " + userh.name);
+			return this.sendReply("El usuario ya tiene el permiso para el customsymbol.");
+		} else {
+			if (Shop.setSymbolPermision(params[0], permision)) return this.sendReply("Permiso para customsymbols retirado a " + params[0]);
+			return this.sendReply("El usuario no tenía ningún permiso que quitar.");
 		}
-		user.customSymbol = target;
+	},
+
+	symbol: 'customsymbol',
+	simbolo: 'customsymbol',
+	customsymbol: function (target, room, user, connection, cmd) {
+		if (!user.can('customsymbol') && !Shop.symbolPermision(user.name)) return this.sendReply('Debes comprar este comando en la tienda para usarlo.');
+		if (!target && cmd === 'hideauth') target = ' ';
+		if (!target || target.length > 1) return this.sendReply('Debes especificar un caracter como simbolo.');
+		if (target.match(/[A-Za-z0-9\d]+/g)) return this.sendReply('Tu simbolo no puede ser un caracter alfanumerico.');
+		if (!user.can('customsymbol')) {
+			if ('?!$+\u2605%@\u2295&~#'.indexOf(target) >= 0) return this.sendReply('No tienes permiso para elegir un rango como simbolo');
+		}
 		user.getIdentity = function (roomid) {
+			if (this.locked) {
+				return '‽' + this.name;
+			}
+			if (roomid) {
+				let room = Rooms.get(roomid);
+				if (room.isMuted(this)) {
+					return '!' + this.name;
+				}
+				if (room && room.auth) {
+					if (room.auth[this.userid]) {
+						return room.auth[this.userid] + this.name;
+					}
+					if (room.isPrivate === true) return ' ' + this.name;
+				}
+			}
 			return target + this.name;
 		};
 		user.updateIdentity();
-		user.canCustomSymbol = false;
 		user.hasCustomSymbol = true;
+		this.sendReply('Tu simbolo ha cambiado a "' + target + '"');
 	},
-	customsymbolhelp: ["/customsymbol [symbol] - Get a custom symbol."],
 
-	resetcustomsymbol: 'resetsymbol',
+	resetearsimbolo: 'resetsymbol',
 	resetsymbol: function (target, room, user) {
-		if (!user.hasCustomSymbol) return this.errorReply("You don't have a custom symbol.");
-		user.customSymbol = null;
+		if (!user.hasCustomSymbol) return this.sendReply('No tienes nigún simbolo personalizado.');
 		user.getIdentity = function (roomid) {
+			if (this.locked) {
+				return '‽' + this.name;
+			}
+			if (roomid) {
+				let room = Rooms.get(roomid);
+				if (room.isMuted(this)) {
+					return '!' + this.name;
+				}
+				if (room && room.auth) {
+					if (room.auth[this.userid]) {
+						return room.auth[this.userid] + this.name;
+					}
+					if (room.isPrivate === true) return ' ' + this.name;
+				}
+			}
 			return this.group + this.name;
 		};
-		user.updateIdentity();
 		user.hasCustomSymbol = false;
-		this.sendReply("Your symbol has been reset.");
+		user.updateIdentity();
+		this.sendReply('Tu simbolo se ha restablecido.');
 	},
-	resetsymbolhelp: ["/resetsymbol - Resets your custom symbol."],
-
 	
 	pd: 'wallet',
 	purse: 'wallet',
