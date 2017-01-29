@@ -9,8 +9,8 @@ let shop = [
 	['mover avatar', 'Buys an custom avatar to be applied to your name (You supply. Images larger than 80x80 may not show correctly)',1500 ],
 	['custom avatar', 'Buys a trainer card which shows information through a command. (You supply, can be refused)', 1000],
 	['trainercard', 'Buys a trainer card which shows information through a command. (You supply, can be refused)', 1000],
-	['emoticon', 'Buys a trainer card which shows information through a command. (You supply, can be refused)', 1000],
-	['phrase de entrada', 'Buys a trainer card which shows information through a command. (You supply, can be refused)', 1000],
+	['emoticon', 'Buys a trainer card which shows information through a command. (You supply, can be refused)', 300],
+	['phrase de entrada', 'Buys a trainer card which shows information through a command. (You supply, can be refused)', 1200],
 	['Arreglo', 'Staff member will help set up roomintros and anything else needed in a room. Response may not be immediate.', 500],
 	['Icon', 'Buy a custom icon that can be applied to the rooms you want. You must take into account that the provided image should be 32 x 32', 1000],
 	['Sala', 'Buys a chatroom for you to own. (within reason, can be refused)', 4000],
@@ -125,7 +125,7 @@ function findItem(item, money) {
 function handleBoughtItem(item, user, cost) {
 	if (item === 'simbolo') {
 		user.canCustomSymbol = true;
-		this.sendReply("Usted ha adquirido un símbolo personalizado. Puedes usar /customsymbol para obtener su símbolo personalizado.");
+		this.sendReply("Usted ha adquirido un símbolo personalizado. Por favor contactar a un admin para user tu simbolo.");
 		this.sendReply("Tendrá esto hasta que cierre la sesión durante más de una hora.");
 		this.sendReply("Si no desea que su símbolo personalizado más, puede usar /resetsymbol para volver a su antiguo símbolo.");
 	} else if (item === 'declare') {
@@ -361,15 +361,15 @@ hide: 'hideauth',
 		if (room.id === '' && this.broadcasting) {
 			return true;
 		} else {
-			var buttonStyle = 'border-radius:5px; border: 2px inset black; background: #FF335A ; color:black; padding: 3px';
+			var buttonStyle = 'border-radius:5px; border: 2px inset black; background: #33A9FF; color:black; padding: 3px';
 			var topStyle = 'background: url(http://i.imgur.com/FD2q9yD.jpg) ; border: 1px solid black; padding: 2px; border-radius: 5px;';
-			var descStyle = 'border-radius: 5px; border: 1px solid black ; background: #FF335A; color: #000; border-collapse: collapse;';
+			var descStyle = 'border-radius: 5px; border: 1px solid black ; background: #33A9FF; color: #000; border-collapse: collapse;';
 			var top = '<td><center><table style="' + topStyle + '" border="5" cellspacing ="5" cellpadding="5"><tr><th>Objeto</th><th>Descripcion del objeto</th><th>Precio</th></tr>';
 			var bottom = '<table><td style="' + descStyle + '">Para comprar un item de la tienda  use /buy comando. <b>NO</b> nos hacemos responsables por objetos comprados erroneamente.</td>';
 			function table(item, desc, price) {
 				return '<tr><center><td style="' + descStyle + '"><center><button title="Da click para comprar un ' + item + ' de la tienda" style="' + buttonStyle + '" name="send" value="/checkbuy ' + item + '">' + item + '</button><center></td><td style="' + descStyle + '">' + desc + '</center></td><td style="' + descStyle + '">' + price + '</td></tr>';
 			}
-			return this.sendReply('|raw|<table><th style="background: #FF335A;border: 1px solid #222222; border-bottom-width: 10px; color: #222222; padding: 10px; font-size: 13pt;"><center>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Tienda de WhiteFlare&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</center></th></table>' +
+			return this.sendReply('|raw|<table><th style="background: #E6FF33;border: 1px solid #222222; border-bottom-width: 10px; color: #222222; padding: 10px; font-size: 13pt;"><center>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Tienda de Lightning&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</center></th></table>' +
 			'<div style="max-height: 310px; overflow-y: scroll;">' +
 				top +
 				table("Simbolo","Compra el acceso al comado /customsymbol que permite elegir un símbolo (excepto staff) para aparecer en lo alto de la lista de usuarios.",1000) +
