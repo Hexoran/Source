@@ -391,8 +391,7 @@ const messages = [
 				        "- " + Equ.nameColor('Sunix', true) + " (Admin, policy)<br />" +
 					"<br />" +
 					"<u>Contribuidores:</u><br />" +
-					"- " + Equ.nameColor('Sunix', true) + " (Staff del server)<br />" +
-					"- " + Equ.nameColor('Light Angel 1', true) + " (Staff del server)<br />" +
+					"- " + Equ.nameColor('Vernando', true) + " (Hoster, Desarollo)<br />" +
 					"<br />" +
 					"<u>Agradecimientos:</u><br />" +
 					"- Staff del servidor<br />" +
