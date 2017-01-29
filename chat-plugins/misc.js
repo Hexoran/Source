@@ -383,11 +383,12 @@ const messages = [
     },
 		credit: 'credits',
 	credits: function (target, room, user) {
-		this.popupReply("|html|" + "<font size=5>Creditos de WhiteFlare</font><br />" +
+		this.popupReply("|html|" + "<font size=5>Creditos de Lightning</font><br />" +
 					"<u>Dueños:</u><br />" +
-					"- " + Equ.nameColor('Arocoz', true) + " (Dueño, Hoster, Sysadmin, CSS del Servidor)<br />" +
-                    "- " + Equ.nameColor('RαinbowStars', true) + " (Admin, Roomintro, policy)<br />" +
-                    "- " + Equ.nameColor('Victinil', true) + " (Admin, Foro)<br />" +
+					"- " + Equ.nameColor('RαinbowStars', true) + " (Admin, Roomintros)<br />" +
+                 			"- " + Equ.nameColor('Light Angel 1', true) + " (Admin, ligas, tienda)<br />" +
+                    			"- " + Equ.nameColor('DiegoP1907', true) + " (Admin, Foro)<br />" +
+				        "- " + Equ.nameColor('Sunix', true) + " (Admin, policy)<br />" +
 					"<br />" +
 					"<u>Contribuidores:</u><br />" +
 					"- " + Equ.nameColor('Sunix', true) + " (Staff del server)<br />" +
