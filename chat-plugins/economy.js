@@ -313,15 +313,15 @@ hide: 'hideauth',
 		if (room.id === '' && this.broadcasting) {
 			return true;
 		} else {
-			var buttonStyle = 'border-radius:5px; border: 2px inset black; background: #33A9FF; color:black; padding: 3px';
+			var buttonStyle = 'border-radius:5px; border: 2px inset black; background: #E6FF33; color:black; padding: 3px';
 			var topStyle = 'background: url(http://i.imgur.com/FD2q9yD.jpg) ; border: 1px solid black; padding: 2px; border-radius: 5px;';
-			var descStyle = 'border-radius: 5px; border: 1px solid black ; background: #E6FF33; color: #000; border-collapse: collapse;';
+			var descStyle = 'border-radius: 5px; border: 1px solid black ; background: #33A9FF; color: #000; border-collapse: collapse;';
 			var top = '<td><center><table style="' + topStyle + '" border="5" cellspacing ="5" cellpadding="5"><tr><th>Objeto</th><th>Descripcion del objeto</th><th>Precio</th></tr>';
 			var bottom = '<table><td style="' + descStyle + '">Para comprar un item de la tienda  use /buy comando. <b>NO</b> nos hacemos responsables por objetos comprados erroneamente.</td>';
 			function table(item, desc, price) {
 				return '<tr><center><td style="' + descStyle + '"><center><button title="Da click para comprar un ' + item + ' de la tienda" style="' + buttonStyle + '" name="send" value="/checkbuy ' + item + '">' + item + '</button><center></td><td style="' + descStyle + '">' + desc + '</center></td><td style="' + descStyle + '">' + price + '</td></tr>';
 			}
-			return this.sendReply('|raw|<table><th style="background: #E6FF33;border: 1px solid #222222; border-bottom-width: 10px; color: #222222; padding: 10px; font-size: 13pt;"><center>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Tienda de Lightning&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</center></th></table>' +
+			return this.sendReply('|raw|<table><th style="background: #33A9FF;border: 1px solid #222222; border-bottom-width: 10px; color: #222222; padding: 10px; font-size: 13pt;"><center>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Tienda de Lightning&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</center></th></table>' +
 			'<div style="max-height: 310px; overflow-y: scroll;">' +
 				top +
 				table("Simbolo","Compra el acceso al comado /customsymbol que permite elegir un símbolo (excepto staff) para aparecer en lo alto de la lista de usuarios.",1000) +
