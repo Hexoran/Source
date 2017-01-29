@@ -10,7 +10,7 @@ let shop = [
 	['custom avatar', 'Buys a trainer card which shows information through a command. (You supply, can be refused)', 1000],
 	['trainercard', 'Buys a trainer card which shows information through a command. (You supply, can be refused)', 1000],
 	['emoticon', 'Buys a trainer card which shows information through a command. (You supply, can be refused)', 300],
-	['phrase de entrada', 'Buys a trainer card which shows information through a command. (You supply, can be refused)', 1200],
+	['Frase de Entrada', 'Buys a trainer card which shows information through a command. (You supply, can be refused)', 1200],
 	['Arreglo', 'Staff member will help set up roomintros and anything else needed in a room. Response may not be immediate.', 500],
 	['Icon', 'Buy a custom icon that can be applied to the rooms you want. You must take into account that the provided image should be 32 x 32', 1000],
 	['Sala', 'Buys a chatroom for you to own. (within reason, can be refused)', 4000],
@@ -184,83 +184,35 @@ hide: 'hideauth',
 		user.isHiding = false;
 		this.sendReply("You have now revealed your auth symbol.");
 	},
-	symbolpermision: function (target, room, user) {
-		if (!this.can('givemoney')) return false;
-		let params = target.split(',');
-		if (!params || params.length !== 2) return this.sendReply("Usage: /symbolpermision user, [on/off]");
-		let permision = false;
-		if (toId(params[1]) !== 'on' && toId(params[1]) !== 'off') return this.sendReply("Usage: /symbolpermision user, [on/off]");
-		if (toId(params[1]) === 'on') permision = true;
-		if (permision) {
-			let userh = Users.getExact(params[0]);
-			if (!userh || !userh.connected) return this.sendReply("The user does not exist or is not available");
-			if (Shop.setSymbolPermision(params[0], permision)) return this.sendReply("Permiso de customsymbol dado a " + userh.name);
-			return this.sendReply("El usuario ya tiene el permiso para el customsymbol.");
-		} else {
-			if (Shop.setSymbolPermision(params[0], permision)) return this.sendReply("Permiso para customsymbols retirado a " + params[0]);
-			return this.sendReply("El usuario no tenía ningún permiso que quitar.");
+	customsymbol: function (target, room, user) {
+		if (!user.canCustomSymbol && user.id !== user.userid) return this.errorReply("You need to buy this item from the shop.");
+		if (!target || target.length > 1) return this.parse('/help customsymbol');
+		if (target.match(/[A-Za-z\d]+/g) || '|?!+$%@*\u2605&~#\u03c4\u00a3\u03dd\u03b2\u039e\u03a9\u0398\u03a3\u00a9'.indexOf(target) >= 0) {
+			return this.errorReply("Sorry, but you cannot change your symbol to this for safety/stability reasons.");
 		}
-	},
-
-	symbol: 'customsymbol',
-	simbolo: 'customsymbol',
-	customsymbol: function (target, room, user, connection, cmd) {
-		if (!user.can('customsymbol') && !Shop.symbolPermision(user.name)) return this.sendReply('Debes comprar este comando en la tienda para usarlo.');
-		if (!target && cmd === 'hideauth') target = ' ';
-		if (!target || target.length > 1) return this.sendReply('Debes especificar un caracter como simbolo.');
-		if (target.match(/[A-Za-z0-9\d]+/g)) return this.sendReply('Tu simbolo no puede ser un caracter alfanumerico.');
-		if (!user.can('customsymbol')) {
-			if ('?!$+\u2605%@\u2295&~#'.indexOf(target) >= 0) return this.sendReply('No tienes permiso para elegir un rango como simbolo');
-		}
+		user.customSymbol = target;
 		user.getIdentity = function (roomid) {
-			if (this.locked) {
-				return '‽' + this.name;
-			}
-			if (roomid) {
-				let room = Rooms.get(roomid);
-				if (room.isMuted(this)) {
-					return '!' + this.name;
-				}
-				if (room && room.auth) {
-					if (room.auth[this.userid]) {
-						return room.auth[this.userid] + this.name;
-					}
-					if (room.isPrivate === true) return ' ' + this.name;
-				}
-			}
 			return target + this.name;
 		};
 		user.updateIdentity();
+		user.canCustomSymbol = false;
 		user.hasCustomSymbol = true;
-		this.sendReply('Tu simbolo ha cambiado a "' + target + '"');
 	},
+	customsymbolhelp: ["/customsymbol [symbol] - Get a custom symbol."],
 
-	resetearsimbolo: 'resetsymbol',
+	resetcustomsymbol: 'resetsymbol',
 	resetsymbol: function (target, room, user) {
-		if (!user.hasCustomSymbol) return this.sendReply('No tienes nigún simbolo personalizado.');
+		if (!user.hasCustomSymbol) return this.errorReply("You don't have a custom symbol.");
+		user.customSymbol = null;
 		user.getIdentity = function (roomid) {
-			if (this.locked) {
-				return '‽' + this.name;
-			}
-			if (roomid) {
-				let room = Rooms.get(roomid);
-				if (room.isMuted(this)) {
-					return '!' + this.name;
-				}
-				if (room && room.auth) {
-					if (room.auth[this.userid]) {
-						return room.auth[this.userid] + this.name;
-					}
-					if (room.isPrivate === true) return ' ' + this.name;
-				}
-			}
 			return this.group + this.name;
 		};
-		user.hasCustomSymbol = false;
 		user.updateIdentity();
-		this.sendReply('Tu simbolo se ha restablecido.');
+		user.hasCustomSymbol = false;
+		this.sendReply("Your symbol has been reset.");
 	},
-	
+	resetsymbolhelp: ["/resetsymbol - Resets your custom symbol."],
+				
 	pd: 'wallet',
 	purse: 'wallet',
 	wallet: function (target, room, user) {
@@ -363,7 +315,7 @@ hide: 'hideauth',
 		} else {
 			var buttonStyle = 'border-radius:5px; border: 2px inset black; background: #33A9FF; color:black; padding: 3px';
 			var topStyle = 'background: url(http://i.imgur.com/FD2q9yD.jpg) ; border: 1px solid black; padding: 2px; border-radius: 5px;';
-			var descStyle = 'border-radius: 5px; border: 1px solid black ; background: #33A9FF; color: #000; border-collapse: collapse;';
+			var descStyle = 'border-radius: 5px; border: 1px solid black ; background: #E6FF33; color: #000; border-collapse: collapse;';
 			var top = '<td><center><table style="' + topStyle + '" border="5" cellspacing ="5" cellpadding="5"><tr><th>Objeto</th><th>Descripcion del objeto</th><th>Precio</th></tr>';
 			var bottom = '<table><td style="' + descStyle + '">Para comprar un item de la tienda  use /buy comando. <b>NO</b> nos hacemos responsables por objetos comprados erroneamente.</td>';
 			function table(item, desc, price) {
